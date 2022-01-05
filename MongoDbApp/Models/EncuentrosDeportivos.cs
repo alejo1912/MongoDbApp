@@ -7,5 +7,6 @@ namespace MongoDbApp.Models
 {
     public class EncuentrosDeportivos
     {
+        public int MyProperty { get; set; }
     }
 }
