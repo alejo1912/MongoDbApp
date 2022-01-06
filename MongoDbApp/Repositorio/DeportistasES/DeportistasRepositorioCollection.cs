@@ -25,8 +25,17 @@ namespace MongoDbApp.Repositorio.DeportistasES
 
         public async Task<Deportistas> GetDeportistasById(string id)
         {
-            return await collectin.FindAsync(
-                new BsonDocument { { "_id", new ObjectId(id)}}).Result.FirstAsync();
+            Deportistas deportista = new Deportistas();
+            try
+            {
+                deportista = await collectin.FindAsync(new BsonDocument { { "_id", new ObjectId(id) } }).Result.FirstAsync();
+            }
+            catch (Exception e)
+            {
+                return deportista;
+            }
+            
+            return deportista;
         }
 
         public async Task<List<Deportistas>> GetListDeportistas()

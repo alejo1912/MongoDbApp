@@ -48,14 +48,14 @@ namespace MongoDbApp.Controllers.Api
             };
             if (!string.IsNullOrWhiteSpace(id))
             {
-                var Deportista = await Task.Run(() => _repositoryDeportistas.GetDeportistasById(id));
-                if (Deportista != null)
+                var deportista = await Task.Run(() => _repositoryDeportistas.GetDeportistasById(id));
+                if (deportista != null && deportista.id.Increment>0)
                 {
                     response.Message = "ok";
                     response.Ok = true;
+                    var data = new { deportista, response };
+                    return Ok(data);
                 }
-                var data = new { Deportista, response };
-                return Ok(data);
             }
             else
             {
