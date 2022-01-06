@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.TemporadasES
 {
-    public class ITemporadasContradoCollection
+    public interface ITemporadasContradoCollection
     {
         Task InsertTemporada(Temporadas entidad);
         Task UpdateTemporada(Temporadas entidad);
