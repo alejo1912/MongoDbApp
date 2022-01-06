@@ -7,7 +7,8 @@ namespace MongoDbApp.Models
 {
     public class Equipos
     {
-        public string _id { get; set; }
+        [BsonId]
+        public ObjectId id { get; set; }
         public string nombreEquipo { get; set; }
     }
 }

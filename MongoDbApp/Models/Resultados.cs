@@ -7,9 +7,11 @@ namespace MongoDbApp.Models
 {
     public class Resultados
     {
+        [BsonId]
+        public ObjectId id { get; set; }
         public string idEquipo { get; set; }
         public string idEncuentroDeportivo { get; set; }
-        public string idArbitro { get; set; }
+        
         public int resultado { get; set; }
     }
 }
