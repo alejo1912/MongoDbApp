@@ -103,8 +103,8 @@ namespace MongoDbApp.Controllers.Api
             }
         }
 
-        [Route("[action]")]
-        [HttpPut("{id}")]
+        [Route("[action]", Name = "UpdateDeportista")]
+        [HttpPut]
         public async Task<IActionResult> UpdateDeportista([FromBody] Deportistas entidad,string id)
         {
             ResponseApp data = new ResponseApp()
@@ -114,13 +114,14 @@ namespace MongoDbApp.Controllers.Api
             };
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && !string.IsNullOrWhiteSpace(id))
                 {
                     entidad.id =new MongoDB.Bson.ObjectId(id);
                     await Task.Run(() => _repositoryDeportistas.UpdateDeportistas(entidad));
                 }
                 else
                 {
+                    data.Message = "id no puede ser null";
                     foreach (var item in ModelState.Values)
                     {
                         if (item.Errors[0].ErrorMessage == "")
@@ -132,7 +133,7 @@ namespace MongoDbApp.Controllers.Api
                             data.Message += item.Errors[0].ErrorMessage + " ";
                         }
                     }
-                    ModelState.AddModelError("Nombre", data.Message);
+                    BadRequest(data);
                 }
                 return Created("Created", true);
             }
@@ -142,7 +143,8 @@ namespace MongoDbApp.Controllers.Api
                 return BadRequest(data);
             }
         }
-        [Route("[action]")]
+
+        [Route("[action]", Name = "DeleteDeportista")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDeportista(string id)
         {
