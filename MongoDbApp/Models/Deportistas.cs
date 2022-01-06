@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +9,8 @@ namespace MongoDbApp.Models
 {
     public class Deportistas
     {
-        public string _id { get; set; }
+        [BsonId]
+        public ObjectId id { get; set; }
 
         /// <summary>
         /// Nombre juados
@@ -28,6 +31,11 @@ namespace MongoDbApp.Models
         /// identificacion del jugador
         /// </summary>
         public string documento { get; set; }
+
+        /// <summary>
+        /// fecha registro
+        /// </summary>
+        public DateTime fecha { get; set; }
 
         /// <summary>
         /// id automatico de la tabla de equipos
