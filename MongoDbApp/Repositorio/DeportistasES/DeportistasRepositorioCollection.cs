@@ -28,13 +28,15 @@ namespace MongoDbApp.Repositorio.DeportistasES
             Deportistas deportista = new Deportistas();
             try
             {
-                deportista = await collectin.FindAsync(new BsonDocument { { "_id", new ObjectId(id) } }).Result.FirstAsync();
+                //var filter = Builders<Deportistas>.Filter.Eq(b => b.id, new ObjectId(id));
+                //var entity = await collectin.FindAsync(filter).Result.FirstAsync();
+                //return entity;
+                deportista= await collectin.FindAsync(new BsonDocument {{ "_id", new ObjectId(id) } }).Result.FirstAsync();
             }
             catch (Exception e)
-            {
+            {               
                 return deportista;
             }
-            
             return deportista;
         }
 
