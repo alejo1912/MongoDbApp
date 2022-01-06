@@ -41,16 +41,27 @@ namespace MongoDbApp.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetUnDeportistaById(string id)
         {
-            bool ok = false;
-            string mensaje = "Sin Datos";
-            var Deportista = await Task.Run(() => _repositoryDeportistas.GetDeportistasById(id));
-            if (Deportista != null)
+            ResponseApp response = new ResponseApp()
             {
-                mensaje = "ok";
-                ok = true;
+                Message = "Ups!. Tu Solicitud No Pudo ser Procesada",
+                Ok = false
+            };
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                var Deportista = await Task.Run(() => _repositoryDeportistas.GetDeportistasById(id));
+                if (Deportista != null)
+                {
+                    response.Message = "ok";
+                    response.Ok = true;
+                }
+                var data = new { Deportista, response };
+                return Ok(data);
             }
-            var data = new { Deportista, ok, mensaje };
-            return Ok(data);
+            else
+            {
+                response.Message = "Debes enviar un id";
+            }
+            return BadRequest(response);
         }
 
         [Route("[action]")]
