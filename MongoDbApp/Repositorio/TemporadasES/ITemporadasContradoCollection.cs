@@ -8,7 +8,11 @@ namespace MongoDbApp.Repositorio.TemporadasES
 {
     public class ITemporadasContradoCollection
     {
-        Task InsertTemporadas(Temporadas entidad);
+        Task InsertTemporada(Temporadas entidad);
+        Task UpdateTemporada(Temporadas entidad);
+        Task DeleteTemporada(string id);
+
         Task<List<Temporadas>> GetListTemporadas();
+        Task<Temporadas> GetTemporadaById(string id);
     }
 }
