@@ -11,7 +11,7 @@
                 <a data-toggle="tab" class="nav-link" href="#home1">Gestión Deportistas</a>
             </li>
             <li class="nav-item">
-                <a data-toggle="tab" class="nav-link" href="#home2">Adicional</a>
+                @*<a data-toggle="tab" class="nav-link" href="#home2">Adicional</a>*@
             </li>
         </ul>
     </div>
@@ -27,70 +27,22 @@
                         <input type="number" class="form-control" id="Id" name="Id" placeholder="Id" required readonly>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="PrimerNombre"><span style="color:red">*</span>Primer Nombre - Razon Social</label>
+                        <label class="col-form-label" name="PrimerNombre"><span style="color:red">*</span>Nombre</label>
                         <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre" placeholder="Primer Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="SegundoNombre">Segundo Nombre</label>
-                        <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre" placeholder="Segundo Nombre" required>
+                        <label class="col-form-label" name="numero">Numero</label>
+                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Segundo Nombre" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="PrimerApellido">Primer Apellido</label>
-                        <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" placeholder="Primer Apellido" required>
+                        <label class="col-form-label" name="posision">Posision</label>
+                        <input type="text" class="form-control" id="posision" name="posision" placeholder="Primer Apellido" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="SegundoApellido">Segundo Apellido</label>
                         <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido" placeholder="Segundo Apellido" required>
                     </div>
-                    @*</div>
-                        <div class="form-group row">*@
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Telefono">Telefono</label>
-                        <input type="number" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Celular"><span style="color:red">*</span>Celular</label>
-                        <input type="number" class="form-control" id="Celular" name="Celular" placeholder="Celular" required>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="TipoIdentificacionId">Tipo Identificacion</label>
-                        <select type="button" class="form-control" id="TipoIdentificacionId" name="TipoIdentificacionId" placeholder="TipoIdentificacionId" required>
-                        </select>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="NumeroIdentificacion">Numero Identificacion</label>
-                        <input type="text" class="form-control" id="NumeroIdentificacion" name="NumeroIdentificacion" placeholder="NumeroIdentificacion" required>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Digito">Digito de Verificación</label>
-                        <input type="number" class="form-control" id="Digito" name="Digito" placeholder="Digito" required>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Correo"><span style="color:red">*</span>Correo</label>
-                        <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo" required>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="FechaNacimiento">Fecha Nacimiento</label>
-                        <input type="text" class="form-control datepicker" id="FechaNacimiento" name="FechaNacimiento" placeholder="FechaNacimiento">
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Pais">Estado Civil</label>
-                        <select class="form-control" id="EstadoCivilId" name="EstadoCivilId" placeholder="Estado Civil"></select>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Pais">Pais</label>
-                        <select class="form-control" id="Pais" name="Pais" placeholder="Pais"></select>
-                    </div>
-                    @*</div>
-                        <div class="form-group row">*@
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Departamento">Departamento</label>
-                        <select class="form-control" id="Departamento" name="Departamento" placeholder="Departamento"></select>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="IdCiudad"><span style="color:red">*</span>Ciudad</label>
-                        <select class="form-control" id="IdCiudad" name="IdCiudad" placeholder="IdCiudad"></select>
-                    </div>
+
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="btnCrear">.</label>
                         <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
