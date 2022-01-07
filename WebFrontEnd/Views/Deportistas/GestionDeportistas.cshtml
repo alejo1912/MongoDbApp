@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "GestionDeportistas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3" style="margin-top:57px;">
+
+    <div class="card-header">
+        <i class="fa fa-table"></i> @ViewBag.Titulo &emsp;
+    </div>
+    <div class="card-body">
+        <div id="divData" class="table-responsive" @*style="margin-top:0px;"*@>
+            <table id="tableDeportistas" class="display compact dataTable" style="width:100%">
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var DataTableSI = "";
+    var IdUsuario = 0;
+    var EmpresaId = 0;
+
+    $(document).ready(function () {
+        getDepor();
+    });
+
+    function getDepor() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Deportistas/GetAllListDeportistas',
+            method: 'get',
+            data: {},
+            traditional: true,
+            async: true,
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (response) {
+                debugger
+                if (response.Ok) {
+                    toastr["success"](response.Message, "Atención!");
+                } else {
+                    toastr["error"](response.Message, "Error");
+                };
+                $('#btnGetLisDataTable').trigger("click");
+            },
+            error: function (jQXHR) {
+                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
+            }
+        });
+    }
+
+    function GetDeportistas() {
+        debugger
+        if (DataTableSI != "") {
+            $('#tableDeportistas').DataTable().clear();
+            $('#tableDeportistas').DataTable().destroy();
+            $("#tableDeportistas").empty();
+        }
+        var Usuario = $("#NombreUsuario").val();
+        DataTableSI = $('#tableDeportistas').DataTable({
+            processing: true,
+            serverSide: true,
+            filter: true,
+            orderMulti: true,
+            searching: true,
+            ajax: {
+                url: "https://localhost:44331/api/Deportistas/GetAllListDeportistas",
+                "type": "GET",
+                data: {},
+                //data: function (dtParms) {
+                //    return JSON.stringify(dtParms);
+                //},
+                cache: false,
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                error: function (x, y) {
+                    console.log(x);
+                },
+                complete: function (response) {
+                    
+                }
+            },
+            scrollX: true,
+            pagingType: "full_numbers",
+            language: {
+                "search": "Buscar",
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
+                "infoEmpty": "Encontrados 0 de _MAX_ Entradas",
+                "zeroRecords": "No se Encontraron Registros!",
+                "info": "Página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Ultima",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            },
+            dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pb>",
+            lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]],
+            buttons: [],
+            order: [[3, 'asc']],
+            columns: [
+                { title: "Id", name: "Id", data: "Id", "bSortable": false},
+                { title: "Rol", name: "Nombre", data: "Nombre", "bSortable": false},
+                { title: "Descripcion", name: "Descripcion", data: "Descripcion", "bSortable": false},
+            ],
+        });
+
+        //agrega la class form-control-user al input busqueda general
+        $('input').addClass('form-control form-control-sm form-control-user');
+        $('input[type = search]').removeClass('form-control form-control-sm form-control-user');
+
+        ///seleccion multiple fila
+        $('#tableDeportistas tbody').on('click', 'tr', function () {
+            $(this).toggleClass('selected');
+        });
+
+    };
+
+    function ActualizarEstadoRol(Id, Estado) {
+        var data = {
+            Id: Id,
+            Estado: Estado
+        };
+        var usuario = JSON.stringify(data);
+        $.ajax({
+            url: '/api/UsuariosApi/Actualiz',
+            method: 'Post',
+            data: usuario,
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (response) {
+                
+                if (response.Ok) {
+                    toastr["success"](response.Message, "Atención!");
+                } else {
+                    toastr["error"](response.Message, "Error");
+                };
+                $('#btnGetLisDataTable').trigger("click");
+            },
+            error: function (jQXHR) {
+                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
+            }
+        });
+    };
+
+</script>
+
