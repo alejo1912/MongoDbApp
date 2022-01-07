@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="~/css/Imagenes/logo.png">
+    <title>Sistemas Infinitos | Tu Solución de software</title>
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <meta property="og:url" content="https://sistemasinfinitos.com/" />
+    <meta property="fb:app_id" content="1481700018637177" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sistemas Infinitos | ¡Construimos tu Futuro! | Tu Solución de Software" />
+    <meta property="og:description" content="¡En Sistemas Infinitos.¡Construimos tu Futuro!¡Atrévete a Soñar!Si te lo puedes imaginar, lo puedemos hacer!" />
+    <meta property="og:image" content="~/css/Imagenes/logo.png" />
+
+    <link href="~/css/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS-->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- Custom fonts for this template-->
+    <link href="~/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Animated css -->
+    <link href="~/css/" rel="stylesheet" />
+    <link href="~/css/toastr.css" rel="stylesheet" />
+    <link href="~/css/Site.css" rel="stylesheet" />
+    @RenderSection("scripts", required: false)
+</head>
+<body id="page-top">
+    <!-- ================== Header Componenr =============== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" style="background-color:#4e73df;color:white;">
+
+        <a class="navbar-brand" href="#" id="Index">
+            <img src="~/css/Imagenes/logo.png" style="height: 60px;width: 120px;" />
+            <span id="Empresa"></span>
+        </a> <h6 style="color:white;" id="SesionExpire">&nbsp;<span id="ExpireTokenIndex1"></span></h6>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <span id="ExpireTokenAcces" hidden style="display:none"></span>
+            <!-- ============ SideBar Init =================== -->
+            @* Menu *@
+            <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
+                @* Portafolio *@
+
+
+                @* Fin Portafolio  *@
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
+                        <i class="fa fa-briefcase"></i>
+                        <span class="nav-link-text text-white-50">Nuestro Portafolio</span>
+                    </a>
+                </li>
+                <li class="sidebar-divider"></li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span class="nav-link-text text-white-50">Aplicaciones Web</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Personas" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-comments" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Analisis de Requerimientos</a>
+                            <a class="fa fa-paint-brush" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Diseños App Web</a>
+                            <a class="fa fa-code" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">Desarrollo App Web</a>
+                            <a class="fa fa-globe" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Dominio Web y Server</a>
+                            <a class="fa fa-cloud" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Hosting Web y Server</a>
+                            <a class="fa fa-sitemap" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Administración</a>
+                            <a class="fa fa-cloud-upload" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Implementaciones</a>
+                            <a class="fa fa-graduation-cap" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Capacitaciones</a>
+                            <a class="fa fa-file-text" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Manuales</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Pagina" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">Pagina Web</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Pagina" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Diseños Web</a>
+                            <a class="fa fa-globe" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Dominio Web</a>
+                            <a class="fa fa-cloud" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Hosting Web</a>
+                            <a class="fa fa-sitemap" style="color:white;" href="https://api.whatsapp.com/send?phone=573052918177&text=Hola!%20quiero%20mas%20información!" target="_blank">&nbsp;Administración Web</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                @* fin del menu home*@
+            </ul>
+            @* Buoton acordeon *@
+            <ul class="navbar-nav sidenav-toggler" style="background-color:#4e83df">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-arrow-circle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- ============ SideBar Fin =================== -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link active" href="#" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="indicator text-success d-none d-lg-block">
+                            <i class="fa fa-fw fa-circle" id="circuloEstado"></i>
+                        </span>
+                        &nbsp;<span style="font-weight:bold" id="Bienvenido">Bienvenido:&nbsp;</span><span id="spanUsername"></span>&nbsp;<i class="" data-toggle="tooltip" data-placement="right" title="Login" style="color:chartreuse" id="btnLogoff"></i>&nbsp;<i id="estadoIniciar"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- =================================================== RefresTokenModal ============================================================  -->
+    <div class="modal fade bd-example-modal-ms" tabindex="-1" id="RefresTokenModalIndex" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content expireTokenModal-->
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title text-dark">Su Sesión Expira en!</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <span id="expireTokencountdown" style="text-align:center;font-size:50px;color:#434343;">0 s</span>
+                <div class="modal-body">
+                    <p style="text-align:center;" id="expireTokencountdown2">Clic en Continuar Para No cerrar la sesion.</p>
+                </div>
+                <button type="button" id="RefresToken" class="close btn btn-danger" data-dismiss="modal">Continuar</button>
+                <div class="modal-footer">
+                    <button type="button" id="exitUserLoginX" class="close btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- =================================================== ValidarCodigoPinModal ============================================================  -->
+    <div class="modal fade bd-example-modal-ms" tabindex="-1" id="ValidarCodigoPinModalCredenciales" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content expireTokenModal-->
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <h4 class="modal-title text-dark">Validar!</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    &nbsp;<input class="btn btn-lg btn-warning" type="text" id="CodePin" placeholder="Codigo Pin"><i class="glyphicon glyphicon-repeat"></i><br /><br />
+                    &nbsp;<button class="btn btn-lg btn-success" type="button" id="Crear"><i class="glyphicon glyphicon-repeat"></i>Envíar</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="LoadingInfinito" style="display: none; width: 100%; height: 100%; top: 100px; left: 0px; position: fixed; z-index: 10000; text-align: center;">
+        <img src="~/css/Imagenes/looad.gif" width="180" height="180" alt="Loading..." style="position: fixed; top: 40%; left: 50%;" />
+    </div>
+    <!-- ================== Header Component Fin =============== -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+
+    <script src="~/css/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/css/startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages Nuevo-->
+    <script src="~/css/startbootstrap/js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin.min.js"></script>
+
+    <!--=================== Body Container ==================== -->
+    <div class="content-wrapper">
+        <div class="container body-content">
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; Copyright Sistemas Infinitos - @DateTime.Now.Year </p>
+            </footer>
+            <!-- =============== Breadcrumbs =================== -->
+            <!-- =============== Fin Breadcrumbs ============== -->
+            <!-- =============== Container Page ============== -->
+            <!-- =============== Fin Container Page ========== -->
+        </div>
+    </div>
+    <!--================= Fin Body Container ================ -->
+</body>
+</html>
