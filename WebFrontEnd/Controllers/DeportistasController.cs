@@ -11,6 +11,10 @@ namespace WebFrontEnd.Controllers
         public IActionResult GestionDeportistas()
         {
             return View();
+        }    
+        public IActionResult GetDeportistas()
+        {
+            return View();
         }
     }
 }

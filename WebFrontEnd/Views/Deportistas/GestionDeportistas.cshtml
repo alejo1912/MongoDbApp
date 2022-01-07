@@ -4,117 +4,262 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card mb-3" style="margin-top:57px;">
-
-    <div class="card-header">
-        <i class="fa fa-table"></i> @ViewBag.Titulo &emsp;
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-top:67px;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#home1">Gestión Deportistas</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#home2">Adicional</a>
+            </li>
+        </ul>
     </div>
-    <div class="card-body">
-        <div class="panel-body-busqueda">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover display compact dataTable" id="tableDeportistas">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center">Nombre</th>
-                            <th style="text-align:center">Numero</th>
-                            <th style="text-align:center">Posision</th>
-                            <th style="text-align:center">Documento</th>
-                            <th style="text-align:center">Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+</nav>
+<div class="card o-hidden border-0 shadow-lg my-n2">
+    <div class="tab-content">
+        <br />
+        @* Persona *@
+        <div class="tab-pane active" id="home1">
+            <form class="user" style="margin:2%">
+                <div class="form-group row">
+                    <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                        <input type="number" class="form-control" id="Id" name="Id" placeholder="Id" required readonly>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="PrimerNombre"><span style="color:red">*</span>Primer Nombre - Razon Social</label>
+                        <input type="text" class="form-control" id="PrimerNombre" name="PrimerNombre" placeholder="Primer Nombre">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="SegundoNombre">Segundo Nombre</label>
+                        <input type="text" class="form-control" id="SegundoNombre" name="SegundoNombre" placeholder="Segundo Nombre" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="PrimerApellido">Primer Apellido</label>
+                        <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" placeholder="Primer Apellido" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="SegundoApellido">Segundo Apellido</label>
+                        <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido" placeholder="Segundo Apellido" required>
+                    </div>
+                    @*</div>
+                        <div class="form-group row">*@
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Telefono">Telefono</label>
+                        <input type="number" class="form-control" id="Telefono" name="Telefono" placeholder="Telefono">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Celular"><span style="color:red">*</span>Celular</label>
+                        <input type="number" class="form-control" id="Celular" name="Celular" placeholder="Celular" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="TipoIdentificacionId">Tipo Identificacion</label>
+                        <select type="button" class="form-control" id="TipoIdentificacionId" name="TipoIdentificacionId" placeholder="TipoIdentificacionId" required>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="NumeroIdentificacion">Numero Identificacion</label>
+                        <input type="text" class="form-control" id="NumeroIdentificacion" name="NumeroIdentificacion" placeholder="NumeroIdentificacion" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Digito">Digito de Verificación</label>
+                        <input type="number" class="form-control" id="Digito" name="Digito" placeholder="Digito" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Correo"><span style="color:red">*</span>Correo</label>
+                        <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo" required>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="FechaNacimiento">Fecha Nacimiento</label>
+                        <input type="text" class="form-control datepicker" id="FechaNacimiento" name="FechaNacimiento" placeholder="FechaNacimiento">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Pais">Estado Civil</label>
+                        <select class="form-control" id="EstadoCivilId" name="EstadoCivilId" placeholder="Estado Civil"></select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Pais">Pais</label>
+                        <select class="form-control" id="Pais" name="Pais" placeholder="Pais"></select>
+                    </div>
+                    @*</div>
+                        <div class="form-group row">*@
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Departamento">Departamento</label>
+                        <select class="form-control" id="Departamento" name="Departamento" placeholder="Departamento"></select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="IdCiudad"><span style="color:red">*</span>Ciudad</label>
+                        <select class="form-control" id="IdCiudad" name="IdCiudad" placeholder="IdCiudad"></select>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="btnCrear">.</label>
+                        <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div><!--/tab-pane -->
+        @* Adicional *@
+        <div class="tab-pane" id="home2">
         </div>
-    </div>
+    </div><!--/tab-pane-->
 </div>
-<script type="text/javascript">
-
+<script>
     $(document).ready(function () {
-        GetDeportistas();
+
     });
 
-    function GetDeportistas() {
-        $.ajax({
-            url: 'https://localhost:44331/api/Deportistas/GetAllListDeportistas',
-            method: 'get',
-            data: {},
-            traditional: true,
-            async: true,
-            dataType: "json",
-            headers: {
-                'Authorization': 'Bearer '
-                    + localStorage.getItem("accessToken")
-            },
-            success: function (response) {
-                debugger
-                //$("#tableDeportistas").dataTable().fnDestroy();
-                $('#tableDeportistas').find('tbody').empty();
-                if (response.ok) {
-                    toastr["success"](response.mensaje, "Atención!");
+    $("#btnCrear").click(function () {
+        $('#LoadingInfinito').show();
 
-                    for (var i = 0; i < response.deportistas.length; i++) {
- 
-                        $('#tableDeportistas').find('tbody').append(
-                            `<tr id="">
-                                <td align="right">${ response.deportistas[i].nombre}</td>
-                                <td align="right">${ response.deportistas[i].numero}</td>
-                                <td align="right">${ response.deportistas[i].posision}</td>
-                                <td align="right">${ response.deportistas[i].documento}</td>
-                                <td align="right">${ response.deportistas[i].fecha}</td>
-                            </tr >`);
-                    }
-
-                } else {
-                    toastr["error"](response.mensaje, "Error");
-                };
-                $('#btnGetLisDataTable').trigger("click");
-            },
-            error: function (jQXHR) {
-                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
-            },
-            complete: function () {
-                $('#tableDeportistas').dataTable({
-                    dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                    buttons: []
-                });
-            }
-        });
-    }
-
-    function ActualizarEstadoRol(Id, Estado) {
         var data = {
-            Id: Id,
-            Estado: Estado
-        };
-        var usuario = JSON.stringify(data);
-        $.ajax({
-            url: '/api/UsuariosApi/Actualiz',
-            method: 'Post',
-            data: usuario,
-            traditional: true,
-            async: true,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            headers: {
-                'Authorization': 'Bearer '
-                    + localStorage.getItem("accessToken")
-            },
-            success: function (response) {
-                
-                if (response.ok) {
-                    toastr["success"](response.mensaje, "Atención!");
-                } else {
-                    toastr["error"](response.mensaje, "Error");
-                };
-                $('#btnGetLisDataTable').trigger("click");
-            },
-            error: function (jQXHR) {
-                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
-            }
-        });
-    };
+            Id: $("#Id").val(),
+            PrimerNombre: $("#PrimerNombre").val(),
+            SegundoNombre: $("#SegundoNombre").val(),
+            PrimerApellido: $("#PrimerApellido").val(),
+            SegundoApellido: $("#SegundoApellido").val(),
+            Telefono: $("#Telefono").val(),
+            Celular: $("#Celular").val(),
+            TipoIdentificacionId: $("#TipoIdentificacionId").val(),
+            NumeroIdentificacion: $("#NumeroIdentificacion").val(),
+            Digito: $("#Digito").val(),
+            Correo: $("#Correo").val(),
+            Estado: $("#Estado").val(),
+            FechaNacimiento: $("#FechaNacimiento").val(),
+            IdCiudad: $("#IdCiudad").val(),
+            EstadoCivilId: $("#EstadoCivilId").val(),
+            Hijos: $("#Hijos").val(),
+            IdFoto: $("#IdFoto").val(),
+            RazonSocial: $("#PrimerNombre").val(),//$("#RazonSocial").val(),
+        }
+        var persona = JSON.stringify(data);
+
+        if (idPesona == 0) {
+
+            $.ajax({
+                url: '/api/PersonaApi/CreatePersona',
+                method: 'Post',
+                data: persona,
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (data) {
+
+                    if (data.Ok) {
+                        toastr.success(data.Message);
+                    } else {
+                        toastr.warning(data.Message);
+                    }
+                },
+                complete: function () {
+                    
+                },
+                error: function (data) {
+                    toastr.error(data.responseJSON);
+                }
+            });
+        } else {
+
+            $.ajax({
+                url: '/api/PersonaApi/ActualizarPersona',
+                method: 'Post',
+                data: persona,
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (data) {
+
+                    if (data.Ok) {
+                        toastr.success(data.Message);
+                    } else {
+                        toastr.warning(data.Message);
+                    }
+                },
+                complete: function () {
+                    
+                },
+                error: function (data) {
+                    toastr.error(data.responseJSON);
+                }
+            });
+        }
+    });
+
+    function getPersona() {
+        if (idPesona > 0) {
+            $('#LoadingInfinito').show();
+            $.ajax({
+                url: '/api/PersonaApi/GetPersona',
+                method: 'get',
+                data: { Id: idPesona },
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (data) {
+                    if (data.Ok) {
+                        $("#Id").val(data.data.Id),
+                        $("#PrimerNombre").val(data.data.PrimerNombre);
+                        $("#SegundoNombre").val(data.data.SegundoNombre);
+                        $("#PrimerApellido").val(data.data.PrimerApellido);
+                        $("#SegundoApellido").val(data.data.SegundoApellido);
+                        $("#Telefono").val(data.data.Telefono);
+                        $("#Celular").val(data.data.Celular);
+                        $("#NumeroIdentificacion").val(data.data.NumeroIdentificacion);
+                        $("#Digito").val(data.data.Digito);
+                        $("#Correo").val(data.data.Correo);
+                        $("#Estado").val(data.data.Estado);
+                        var date = formatDate(data.data.FechaNacimientoTex);
+                        $("#FechaNacimiento").val(date);
+                        $("#Hijos").val(data.data.Hijos);
+                        $("#IdFoto").val(data.data.IdFoto);
+                        $("#RazonSocial").val(data.data.RazonSocial);
+                        pais = data.data.IdPais;
+                        departamento = data.data.IdDistritoDepartamento;
+                        ciudad = data.data.IdCiudad;
+                        TipoIdentificacionId = data.data.TipoIdentificacionId;
+                        EstadoCivilId = data.data.EstadoCivilId;
+
+                        Pais();
+                        Departamentos(pais);
+                        Ciudades(departamento);
+
+                        TipoDocumento();
+                        EstadoCivil();
+                    } else {
+                        toastr.warning(data.Message);
+                    }
+                },
+                complete: function () {
+                    
+                },
+                error: function (data) {
+                    toastr.error(data.responseJSON);
+                },
+                complete: function () {
+                    
+                },
+            });
+        }
+        else {
+            EstadoCivil();
+            TipoDocumento();
+            Pais();
+        }
+    }
 
 </script>
 

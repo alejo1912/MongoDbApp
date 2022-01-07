@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewData["Title"] = "GetDeportistas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3" style="margin-top:57px;">
+
+    <div class="card-header">
+        <i class="fa fa-table"></i> @ViewBag.Titulo &emsp;
+    </div>
+    <div class="card-body">
+        <div class="panel-body-busqueda">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover display compact dataTable" id="tableDeportistas">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Nombre</th>
+                            <th style="text-align:center">Numero</th>
+                            <th style="text-align:center">Posision</th>
+                            <th style="text-align:center">Documento</th>
+                            <th style="text-align:center">Fecha</th>
+                            <th style="text-align:center">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        GetDeportistas();
+    });
+
+    function GetDeportistas() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Deportistas/GetAllListDeportistas',
+            method: 'get',
+            data: {},
+            traditional: true,
+            async: true,
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (response) {
+                debugger
+                //$("#tableDeportistas").dataTable().fnDestroy();
+                $('#tableDeportistas').find('tbody').empty();
+                if (response.ok) {
+                    toastr["success"](response.mensaje, "Atención!");
+
+                    for (var i = 0; i < response.deportistas.length; i++) {
+
+                        $('#tableDeportistas').find('tbody').append(
+                            `<tr id="">
+                                <td align="right">${ response.deportistas[i].nombre}</td>
+                                <td align="right">${ response.deportistas[i].numero}</td>
+                                <td align="right">${ response.deportistas[i].posision}</td>
+                                <td align="right">${ response.deportistas[i].documento}</td>
+                                <td align="right">${ response.deportistas[i].fecha}</td>
+                            </tr >`);
+                    }
+
+                } else {
+                    toastr["error"](response.mensaje, "Error");
+                };
+                $('#btnGetLisDataTable').trigger("click");
+            },
+            error: function (jQXHR) {
+                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
+            },
+            complete: function () {
+                $('#tableDeportistas').dataTable({
+                    dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    buttons: []
+                });
+            }
+        });
+    }
+
+    function ActualizarEstadoRol(Id, Estado) {
+        var data = {
+            Id: Id,
+            Estado: Estado
+        };
+        var usuario = JSON.stringify(data);
+        $.ajax({
+            url: '/api/UsuariosApi/Actualiz',
+            method: 'Post',
+            data: usuario,
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (response) {
+
+                if (response.ok) {
+                    toastr["success"](response.mensaje, "Atención!");
+                } else {
+                    toastr["error"](response.mensaje, "Error");
+                };
+                $('#btnGetLisDataTable').trigger("click");
+            },
+            error: function (jQXHR) {
+                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
+            }
+        });
+    };
+
+</script>
+
