@@ -12,5 +12,6 @@ namespace MongoDbApp.Models
         [BsonId]
         public ObjectId id { get; set; }
         public string Temporada { get; set; }
+        public DateTime fecha { get; set; }
     }
 }
