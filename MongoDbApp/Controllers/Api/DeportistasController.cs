@@ -5,6 +5,7 @@ using MongoDbApp.Models.Comun;
 using MongoDbApp.Repositorio.DeportistasES;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace MongoDbApp.Controllers.Api
     [ApiController]
     public class DeportistasController : ControllerBase
     {
+        CultureInfo culture = new CultureInfo("en-US", true);
         private readonly IDeportistasContratoCollection _repositoryDeportistas;
         public DeportistasController()
         {
@@ -31,6 +33,7 @@ namespace MongoDbApp.Controllers.Api
             foreach (var item in Deportistas)
             {
                 item.idTex = item.id.ToString();
+                item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
             }
             if (Deportistas != null || Deportistas.Count()>0)
             {
@@ -55,6 +58,7 @@ namespace MongoDbApp.Controllers.Api
                 var deportista = await Task.Run(() => _repositoryDeportistas.GetDeportistasById(id));
                 if (deportista != null && deportista.id.Increment>0)
                 {
+                    deportista.idTex = deportista.id.ToString();
                     response.Message = "ok";
                     response.Ok = true;
                     var data = new { deportista, response };
@@ -109,7 +113,7 @@ namespace MongoDbApp.Controllers.Api
 
         [Route("[action]", Name = "UpdateDeportista")]
         [HttpPut]
-        public async Task<IActionResult> UpdateDeportista([FromBody] Deportistas entidad,string id)
+        public async Task<IActionResult> UpdateDeportista([FromBody] Deportistas entidad)
         {
             ResponseApp data = new ResponseApp()
             {
@@ -118,9 +122,9 @@ namespace MongoDbApp.Controllers.Api
             };
             try
             {
-                if (ModelState.IsValid && !string.IsNullOrWhiteSpace(id))
+                if (ModelState.IsValid && !string.IsNullOrWhiteSpace(entidad.idTex))
                 {
-                    entidad.id =new MongoDB.Bson.ObjectId(id);
+                    entidad.id =new MongoDB.Bson.ObjectId(entidad.idTex);
                     await Task.Run(() => _repositoryDeportistas.UpdateDeportistas(entidad));
                 }
                 else
@@ -137,9 +141,9 @@ namespace MongoDbApp.Controllers.Api
                             data.Message += item.Errors[0].ErrorMessage + " ";
                         }
                     }
-                    BadRequest(data);
+                    return BadRequest(data);
                 }
-                return Created("Created", true);
+                return Ok(data);
             }
             catch (Exception x)
             {

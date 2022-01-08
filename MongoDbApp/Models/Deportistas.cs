@@ -37,6 +37,7 @@ namespace MongoDbApp.Models
         /// fecha registro
         /// </summary>
         public DateTime fecha { get; set; }
+        public string fechaTex { get; set; }
 
         /// <summary>
         /// id automatico de la tabla de equipos

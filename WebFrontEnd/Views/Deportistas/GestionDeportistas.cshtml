@@ -22,7 +22,7 @@
             <form class="user" style="margin:2%">
                 <div class="form-group row">
                     <div class="col-sm-3 mb-3 mb-sm-3" hidden>
-                        <input type="number" class="form-control" id="id" name="id" placeholder="Id" required readonly>
+                        <input type="number" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="Nombre"><span style="color:red">*</span>Nombre</label>
@@ -55,15 +55,17 @@
     </div>
 </div>
 <script>
-
+    var update = false;
+    var idText = "";
 
     $(document).ready(function () {
-
+        getDeportista();
     });
 
     $("#btnCrear").click(function () {
+        debugger
         var data = {
-            idTex: $("#id").val(),
+            idTex: idText,
             nombre: $("#nombre").val(),
             numero: $("#numero").val(),
             posision: $("#posision").val(),
@@ -71,7 +73,7 @@
             idEquipo: $("#idEquipo").val()
         }
         var entidad = JSON.stringify(data);
-        if (true) {
+        if (update = false) {
             $.ajax({
                 url: 'https://localhost:44331/api/Deportistas/CreateDeportista',
                 //method: 'Post',
@@ -97,12 +99,84 @@
                 },
                 error: function (data) {
                     debugger
-                    toastr.error(data.responseJSON.title);
+                    toastr.error("No pudimos completar tu solicitud!");
                 }
             });
         }
+        else if (idText != "" && idText != undefined && idText != NaN) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Deportistas/UpdateDeportista',
+                'type': 'PUT',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+                    debugger
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    debugger
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else {
+            toastr.warning("selecciona una accion!");
+        }
     });
 
+    function getDeportista() {
+        debugger
+        var id= '@ViewBag.idString';
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Deportistas/GetUnDeportistaById';
+            var url = uri + '?' + $.param({ "id": id });
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+                    debugger
+                    $("#idText").val("");
+                    $("#nombre").val("");
+                    $("#numero").val("");
+                    $("#posision").val("");
+                    $("#documento").val("");
+                    $("#idEquipo").val("");
+
+                    if (data.response.ok) {
+                        toastr.success(data.response.message);
+                        update = true;
+
+                        idText=data.deportista.idTex;
+                        $("#idText").val(data.deportista.idTex);
+                        $("#nombre").val(data.deportista.nombre);
+                        $("#numero").val(data.deportista.numero);
+                        $("#posision").val(data.deportista.posision);
+                        $("#documento").val(data.deportista.documento);
+                        $("#idEquipo").val(data.deportista.idEquipo);
+
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                },
+                error: function (jQXHR) {
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
 
 </script>
 

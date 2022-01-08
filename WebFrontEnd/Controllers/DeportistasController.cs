@@ -8,8 +8,13 @@ namespace WebFrontEnd.Controllers
 {
     public class DeportistasController : Controller
     {
-        public IActionResult GestionDeportistas()
+        public IActionResult GestionDeportistas(string id)
         {
+            ViewBag.idString = "";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                ViewBag.idString = id;
+            }
             return View();
         }    
         public IActionResult GetDeportistas()
