@@ -47,9 +47,9 @@
                     + localStorage.getItem("accessToken")
             },
             success: function (response) {
-                $('#tablePersonas').DataTable().clear();
-                $('#tablePersonas').DataTable().destroy();
-                $("#tablePersonas").empty();
+                $('#tableDeportistas').DataTable().clear();
+                $('#tableDeportistas').DataTable().destroy();
+                //$("#tableDeportistas").empty();
                 $('#tableDeportistas').find('tbody').empty();
                 if (response.ok) {
                     toastr.success(response.mensaje, "Atención!");
@@ -85,24 +85,17 @@
         });
     }
 
-    function BorrarDeportista(idTex) {
+    function BorrarDeportista(id) {
         debugger
-        if (idTex != "" && idTex != undefined && idTex != NaN) {
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Deportistas/DeleteDeportista';
+            var url = uri + '?' + $.param({ "idString": id });
             $.ajax({
-                url: 'https://localhost:44331/api/Deportistas/DeleteDeportista',
-                method: 'Delete',
-                data:  id= idTex ,
-                traditional: true,
-                async: true,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                headers: {
-                    'Authorization': 'Bearer '
-                        + localStorage.getItem("accessToken")
-                },
-                success: function (response) {
+                url: url,
+                type: 'DELETE',
+                success: function (ok) {
                     debugger
-                    if (response) {
+                    if (ok) {
                         toastr.success("success!");
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");

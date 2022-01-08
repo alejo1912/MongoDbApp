@@ -150,13 +150,13 @@ namespace MongoDbApp.Controllers.Api
 
         [Route("[action]", Name = "DeleteDeportista")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteDeportista(string id)
+        public async Task<IActionResult> DeleteDeportista(string idString)
         {
-            if (!string.IsNullOrWhiteSpace(id))
+            if (!string.IsNullOrWhiteSpace(idString))
             {
-                id = id.Trim();
+                var id = idString.Trim();
                 await Task.Run(() => _repositoryDeportistas.DeleteDeportistas(id));
-                return NoContent();
+                return Ok(true);
             }
             return BadRequest();
         }
