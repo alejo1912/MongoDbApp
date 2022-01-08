@@ -54,6 +54,7 @@ namespace MongoDbApp.Repositorio.DeportistasES
         public async Task UpdateDeportistas(Deportistas jugador)
         {
             var filtro = Builders<Deportistas>.Filter.Eq(x => x.id, jugador.id);
+            jugador.fecha = DateTime.Now;
             await collectin.ReplaceOneAsync(filtro,jugador);
         }
     }
