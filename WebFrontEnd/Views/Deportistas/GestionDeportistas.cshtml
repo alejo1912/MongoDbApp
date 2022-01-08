@@ -63,41 +63,41 @@
 
     $("#btnCrear").click(function () {
         var data = {
-            id: $("#id").val(),
+            idTex: $("#id").val(),
             nombre: $("#nombre").val(),
             numero: $("#numero").val(),
             posision: $("#posision").val(),
             documento: $("#documento").val(),
-            idEquipo: $("#idEquipo").val(),
+            idEquipo: $("#idEquipo").val()
         }
-        var persona = JSON.stringify(data);
-
+        var entidad = JSON.stringify(data);
         if (true) {
             $.ajax({
                 url: 'https://localhost:44331/api/Deportistas/CreateDeportista',
-                method: 'Post',
-                data: persona,
+                //method: 'Post',
+                'type': 'POST',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 traditional: true,
                 async: true,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                headers: {
-                    'Authorization': 'Bearer '
-                        + localStorage.getItem("accessToken")
-                },
-                success: function (data) {
-                    debug
-                    if (data.Ok) {
-                        toastr.success(data.mensaje);
+                dataType: "JSON",
+                success: function (ok) {
+                    debugger
+                    if (ok) {
+                        toastr.success("success");
                     } else {
-                        toastr.warning(data.mensaje);
+                        toastr.warning(ok.mensaje);
                     }
                 },
                 complete: function () {
 
                 },
                 error: function (data) {
-                    toastr.error(data.responseJSON);
+                    debugger
+                    toastr.error(data.responseJSON.title);
                 }
             });
         }

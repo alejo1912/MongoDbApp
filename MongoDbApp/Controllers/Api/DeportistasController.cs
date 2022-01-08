@@ -28,6 +28,10 @@ namespace MongoDbApp.Controllers.Api
             bool ok = false;
             string mensaje = "Sin Datos";
             var Deportistas = await Task.Run(() => _repositoryDeportistas.GetListDeportistas());
+            foreach (var item in Deportistas)
+            {
+                item.idTex = item.id.ToString();
+            }
             if (Deportistas != null || Deportistas.Count()>0)
             {
                 mensaje = "ok";
@@ -92,7 +96,7 @@ namespace MongoDbApp.Controllers.Api
                             data.Message += item.Errors[0].ErrorMessage + " ";
                         }
                     }
-                    ModelState.AddModelError("Nombre",data.Message);
+                    return BadRequest(data);
                 }
                 return Created("Created",true);
             }
@@ -148,8 +152,13 @@ namespace MongoDbApp.Controllers.Api
         [HttpDelete]
         public async Task<IActionResult> DeleteDeportista(string id)
         {
-            await Task.Run(() => _repositoryDeportistas.DeleteDeportistas(id));
-            return NoContent();
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                id = id.Trim();
+                await Task.Run(() => _repositoryDeportistas.DeleteDeportistas(id));
+                return NoContent();
+            }
+            return BadRequest();
         }
     }
 }

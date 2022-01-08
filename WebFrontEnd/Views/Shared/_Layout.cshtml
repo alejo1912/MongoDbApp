@@ -27,9 +27,8 @@
     <!-- Custom fonts for this template-->
     <link href="~/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Page level plugin CSS-->
-    <link href="~/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/Pluguin/DataTables/datatables.css" rel="stylesheet" />
     <!-- Animated css -->
-    <link href="~/css/" rel="stylesheet" />
     <link href="~/css/toastr.css" rel="stylesheet" />
     <link href="~/css/Site.css" rel="stylesheet" />
     <link href="~/css/toastr.css" rel="stylesheet" />
@@ -51,107 +50,107 @@
             <span id="ExpireTokenAcces" hidden style="display:none"></span>
             <!-- ============ SideBar Init =================== -->
             @* Menu *@
-        <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
-            @* Portafolio *@
+            <ul class="navbar-nav navbar-sidenav bg-gradient-primary sidebar-dark accordion text-white-50 ml-auto" id="exampleAccordion" style="background-color:#4e73df">
+                @* Portafolio *@
 
 
-            @* Fin Portafolio  *@
-            <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas1" data-parent="#exampleAccordion">
-                    <i class="fa fa-briefcase"></i>
-                    <span class="nav-link-text text-white-50">Gestión Depertiva</span>
-                </a>
-            </li>
-            <li class="sidebar-divider"></li>
+                @* Fin Portafolio  *@
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas1" data-parent="#exampleAccordion">
+                        <i class="fa fa-briefcase"></i>
+                        <span class="nav-link-text text-white-50">Gestión Depertiva</span>
+                    </a>
+                </li>
+                <li class="sidebar-divider"></li>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span class="nav-link-text text-white-50">Deportistas</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="Personas" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-comments" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Deportistas</a>
-                        <a class="fa fa-comments" style="color:white;" href="/Deportistas/GetDeportistas" target="_blank">&nbsp;Deportistas</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#arbitro" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">Árbitro</span>
-                </a>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Personas" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span class="nav-link-text text-white-50">Deportistas</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="Personas" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-comments" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Deportistas</a>
+                            <a class="fa fa-comments" style="color:white;" href="/Deportistas/GetDeportistas" target="_blank">&nbsp;Deportistas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#arbitro" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">Árbitro</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="arbitro" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Árbitro</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Entrenadores" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">Entrenadores</span>
-                </a>
+                    <ul class="sidenav-second-level collapse" id="arbitro" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Árbitro</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Entrenadores" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">Entrenadores</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="Entrenadores" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Entrenadores</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Equipos" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">Equipos</span>
-                </a>
+                    <ul class="sidenav-second-level collapse" id="Entrenadores" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Entrenadores</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Equipos" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">Equipos</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="Equipos" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Equipos</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Temporadas" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">Temporadas</span>
-                </a>
+                    <ul class="sidenav-second-level collapse" id="Equipos" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Equipos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#Temporadas" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">Temporadas</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="Temporadas" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Temporadas</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#TablaDePosiciones" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">TablaDePosiciones</span>
-                </a>
+                    <ul class="sidenav-second-level collapse" id="Temporadas" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Temporadas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#TablaDePosiciones" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">TablaDePosiciones</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="TablaDePosiciones" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Tabla De Posiciones</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#EncuentrosDeportivos" data-parent="#exampleAccordion">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span class="nav-link-text text-white-50">EncuentrosDeportivos</span>
-                </a>
+                    <ul class="sidenav-second-level collapse" id="TablaDePosiciones" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Tabla De Posiciones</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#EncuentrosDeportivos" data-parent="#exampleAccordion">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span class="nav-link-text text-white-50">EncuentrosDeportivos</span>
+                    </a>
 
-                <ul class="sidenav-second-level collapse" id="EncuentrosDeportivos" style="background-color:transparent;">
-                    <li>
-                        <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Encuentros Deportivos</a>
-                    </li>
-                </ul>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
-            @* fin del menu home*@
-        </ul>
+                    <ul class="sidenav-second-level collapse" id="EncuentrosDeportivos" style="background-color:transparent;">
+                        <li>
+                            <a class="fa fa-paint-brush" style="color:white;" href="/Deportistas/GestionDeportistas" target="_blank">&nbsp;Gestión Encuentros Deportivos</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu Aplicaciones Web -->
+                @* fin del menu home*@
+            </ul>
             @* Buoton acordeon *@
             <ul class="navbar-nav sidenav-toggler" style="background-color:#4e83df">
                 <li class="nav-item">
@@ -231,6 +230,7 @@
     <!-- Custom scripts for all pages-->
     <script src="~/js/sb-admin.min.js"></script>
     <script src="~/js/toastr.js"></script>
+    <script src="~/Pluguin/DataTables/datatables.js"></script>
     <!--=================== Body Container ==================== -->
     <div class="content-wrapper">
         <div class="container body-content">

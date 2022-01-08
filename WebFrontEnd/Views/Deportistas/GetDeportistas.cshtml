@@ -30,7 +30,6 @@
     </div>
 </div>
 <script type="text/javascript">
-
     $(document).ready(function () {
         GetDeportistas();
     });
@@ -48,14 +47,13 @@
                     + localStorage.getItem("accessToken")
             },
             success: function (response) {
-                debugger
-                //$("#tableDeportistas").dataTable().fnDestroy();
+                $('#tablePersonas').DataTable().clear();
+                $('#tablePersonas').DataTable().destroy();
+                $("#tablePersonas").empty();
                 $('#tableDeportistas').find('tbody').empty();
                 if (response.ok) {
-                    toastr["success"](response.mensaje, "Atención!");
-
+                    toastr.success(response.mensaje, "Atención!");
                     for (var i = 0; i < response.deportistas.length; i++) {
-
                         $('#tableDeportistas').find('tbody').append(
                             `<tr id="">
                                 <td align="right">${ response.deportistas[i].nombre}</td>
@@ -63,19 +61,22 @@
                                 <td align="right">${ response.deportistas[i].posision}</td>
                                 <td align="right">${ response.deportistas[i].documento}</td>
                                 <td align="right">${ response.deportistas[i].fecha}</td>
+                                <td align="right">
+                                    <button type="button" class="btn btn-success btn-xs" onclick="BorrarDeportista('${response.deportistas[i].idTex}')">
+                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
+                                    </button>
+                                </td>
                             </tr >`);
                     }
-
                 } else {
-                    toastr["error"](response.mensaje, "Error");
-                };
-                $('#btnGetLisDataTable').trigger("click");
+                    toastr.error(response.mensaje, "Error");
+                }; 
             },
             error: function (jQXHR) {
-                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
+                toastr.error('No pudimos procesar su Solicitud!')
             },
             complete: function () {
-                $('#tableDeportistas').dataTable({
+                $('#tableDeportistas').DataTable({
                     dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
                     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                     buttons: []
@@ -84,37 +85,36 @@
         });
     }
 
-    function ActualizarEstadoRol(Id, Estado) {
-        var data = {
-            Id: Id,
-            Estado: Estado
-        };
-        var usuario = JSON.stringify(data);
-        $.ajax({
-            url: '/api/UsuariosApi/Actualiz',
-            method: 'Post',
-            data: usuario,
-            traditional: true,
-            async: true,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            headers: {
-                'Authorization': 'Bearer '
-                    + localStorage.getItem("accessToken")
-            },
-            success: function (response) {
-
-                if (response.ok) {
-                    toastr["success"](response.mensaje, "Atención!");
-                } else {
-                    toastr["error"](response.mensaje, "Error");
-                };
-                $('#btnGetLisDataTable').trigger("click");
-            },
-            error: function (jQXHR) {
-                toastr["warning"]('No pudimos procesar su Solicitud!' + jQXHR.responseJSON + '<br /><br /><button type="button" class="btn clear">Ok</button>')
-            }
-        });
+    function BorrarDeportista(idTex) {
+        debugger
+        if (idTex != "" && idTex != undefined && idTex != NaN) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Deportistas/DeleteDeportista',
+                method: 'Delete',
+                data:  id= idTex ,
+                traditional: true,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'Authorization': 'Bearer '
+                        + localStorage.getItem("accessToken")
+                },
+                success: function (response) {
+                    debugger
+                    if (response) {
+                        toastr.success("success!");
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                    GetDeportistas();
+                },
+                error: function (jQXHR) {
+                    debugger
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
     };
 
 </script>
