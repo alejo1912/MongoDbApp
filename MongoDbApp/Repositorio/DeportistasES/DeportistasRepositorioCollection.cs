@@ -47,6 +47,7 @@ namespace MongoDbApp.Repositorio.DeportistasES
 
         public async Task InsertDeportistas(Deportistas jugador)
         {
+            jugador.fecha =  DateTime.Now;
             await collectin.InsertOneAsync(jugador);
         }
 

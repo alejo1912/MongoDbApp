@@ -73,7 +73,7 @@
             idEquipo: $("#idEquipo").val()
         }
         var entidad = JSON.stringify(data);
-        if (update = false) {
+        if (update == false) {
             $.ajax({
                 url: 'https://localhost:44331/api/Deportistas/CreateDeportista',
                 //method: 'Post',
