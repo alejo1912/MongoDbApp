@@ -1,9 +1,87 @@
-﻿
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDbApp.Models;
+using MongoDbApp.Models.ModelDbConexion;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EventosDeportivosES
 {
-    public class EventosDeportivosRepositorioCollection
+    public class EventosDeportivosRepositorioCollection : IEventosDeportivosContradoCollection
     {
+        internal MongoDBRepository _repository = new MongoDBRepository();
+        private IMongoCollection<EncuentrosDeportivos> collectinEncuentrosDeportivos;
+        private IMongoCollection<Resultados> collectinResultados;
+        public EventosDeportivosRepositorioCollection()
+        {
+            // si no encuentra la collection crea una nueva
+            collectinEncuentrosDeportivos = _repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
+            collectinResultados = _repository.db.GetCollection<Resultados>("Resultados");
+        }
+        public async Task DeleteEncuentrosDeportivo(string id)
+        {
+            var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, new MongoDB.Bson.ObjectId(id));
+            await collectinEncuentrosDeportivos.DeleteOneAsync(filtro);
+        }
 
+        public async Task DeleteResultado(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<EncuentrosDeportivos> GetEncuentrosDeportivoById(string id)
+        {
+            EncuentrosDeportivos encuentros = new EncuentrosDeportivos();
+            try
+            {
+                encuentros = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument { { "_id", new ObjectId(id) } }).Result.FirstAsync();
+            }
+            catch (Exception e)
+            {
+                return encuentros;
+            }
+            return encuentros;
+        }
+
+        public async Task<List<EncuentrosDeportivos>> GetListEncuentrosDeportivos()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<Resultados>> GetListResultados()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<TablaDePosiciones>> GetListTablaDePosicionesSmart(string busqueda)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<Resultados> GetResultadoById(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task InsertResultado(Resultados entidad)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task UpdateResultado(Resultados entidad)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
