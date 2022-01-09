@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewData["Title"] = "GestionTemporadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-top:67px;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#home1">Gestión Equipos</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="card o-hidden border-0 shadow-lg my-n2">
+    <div class="tab-content">
+        <br />
+        @* Persona *@
+        <div class="tab-pane active" id="home1">
+            <form class="user" style="margin:2%">
+                <div class="form-group row">
+                    <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                        <input type="number" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="nombreEquipo"><span style="color:red">*</span>Nombre Equipo</label>
+                        <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo" placeholder="Nombre Equipo">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="btnCrear">.</label>
+                        <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var update = false;
+    var idText = "";
+
+    $(document).ready(function () {
+        getEquipo();
+    });
+
+    $("#btnCrear").click(function () {
+
+        var data = {
+            idTex: idText,
+            nombreEquipo: $("#nombreEquipo").val(),
+        }
+        var entidad = JSON.stringify(data);
+        if (update == false) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Equipos/CreateEquipo',
+                'type': 'POST',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else if (idText != "" && idText != undefined && idText != NaN) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Equipos/UpdateEquipo',
+                'type': 'PUT',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else {
+            toastr.warning("selecciona una accion!");
+        }
+    });
+
+    function getEquipo() {
+        var id= '@ViewBag.idString';
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Equipos/GetUnEquipoById';
+            var url = uri + '?' + $.param({ "id": id });
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+                    $("#idText").val("");
+                    $("#nombreEquipo").val("");
+
+                    if (data.response.ok) {
+                        toastr.success(data.response.message);
+                        update = true;
+
+                        idText = data.equipo.idTex;
+                        $("#idText").val(data.equipo.idTex);
+                        $("#nombreEquipo").val(data.equipo.nombreEquipo);
+
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                },
+                error: function (jQXHR) {
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+</script>
+

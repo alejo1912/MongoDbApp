@@ -14,7 +14,7 @@ namespace MongoDbApp.Models
 
         public virtual string idTex { get; set; }
 
-        public string Temporada { get; set; }
+        public string temporada { get; set; }
         public DateTime fecha { get; set; }
         public virtual string fechaTex { get; set; }
 
