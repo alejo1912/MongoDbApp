@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.TemporadasES
 {
-    public class TemporadasRepositorioCollection : ITemporadasContradoCollection
+    public class TemporadasRepositorioCollection : ITemporadasContratoCollection
     {
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<Temporadas> collectin;
