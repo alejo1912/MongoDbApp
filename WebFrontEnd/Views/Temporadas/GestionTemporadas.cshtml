@@ -26,7 +26,15 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="temporada"><span style="color:red">*</span>Temporadas</label>
-                        <input type="text" class="form-control" id="temporada" name="temporada" placeholder="Temporadas">
+                        <input type="text" class="form-control" id="temporada" name="temporada" placeholder="Nombre Temporadas o Torneo">
+                    </div>                   
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="fechaInicio"><span style="color:red">*</span>Inicio Temporadas</label>
+                        <input type="text" class="form-control datetimepicker" id="fechaInicio" name="fechaInicio" placeholder="YYYY-MM-DD">
+                    </div>  
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="fechaFin"><span style="color:red">*</span>Fin Temporadas</label>
+                        <input type="text" class="form-control datetimepicker" id="fechaFin" name="fechaFin" placeholder="YYYY-MM-DD">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="btnCrear">.</label>
@@ -42,6 +50,12 @@
     var idText = "";
 
     $(document).ready(function () {
+        $("#fechaInicio").val();
+        $("#fechaFin").val();
+       // $('.datetimepicker').datetimepicker()
+        //$('.datetimepicker').datetimepicker({
+        //    format: 'YYYY/MM/DD'
+        //});
         getTemporada();
     });
 
@@ -50,6 +64,8 @@
         var data = {
             idTex: idText,
             temporada: $("#temporada").val(),
+            fechaInicio: $("#fechaInicio").val(),
+            fechaFin: $("#fechaFin").val()
         }
         var entidad = JSON.stringify(data);
         if (update == false) {
@@ -122,6 +138,8 @@
                 success: function (data) {
                     $("#idText").val("");
                     $("#temporada").val("");
+                    $("#fechaInicio").val("");
+                    $("#fechaFin").val("");
 
                     if (data.response.ok) {
                         toastr.success(data.response.message);
@@ -130,6 +148,8 @@
                         idText = data.temporada.idTex;
                         $("#idText").val(data.temporada.idTex);
                         $("#temporada").val(data.temporada.temporada);
+                        $("#fechaInicio").val(data.temporada.fechaInicioTex);
+                        $("#fechaFin").val(data.temporada.fechaFinTex);
 
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");

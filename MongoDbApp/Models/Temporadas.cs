@@ -16,6 +16,10 @@ namespace MongoDbApp.Models
 
         public string temporada { get; set; }
         public DateTime fecha { get; set; }
+        public DateTime fechaInicio { get; set; }
+        public string fechaInicioTex { get; set; }
+        public DateTime fechaFin { get; set; }
+        public string fechaFinTex { get; set; }
         public virtual string fechaTex { get; set; }
 
     }

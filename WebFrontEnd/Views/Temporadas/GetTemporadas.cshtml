@@ -17,7 +17,9 @@
                         <tr>
                             <th style="text-align:center">Editar</th>
                             <th style="text-align:center">Temporada</th>
-                            <th style="text-align:center">Fecha</th>
+                            <th style="text-align:center">Fecha Inicio Torneo</th>
+                            <th style="text-align:center">Fecha Fin Torneo</th>
+                            <th style="text-align:center">Fecha Creacion</th>
                             <th style="text-align:center">Accion</th>
                         </tr>
                     </thead>
@@ -59,6 +61,8 @@
                                     </button>
                                 </td>
                                 <td align="right">${ response.temporadas[i].temporada}</td>
+                                <td align="right">${ response.temporadas[i].fechaInicioTex}</td>
+                                <td align="right">${ response.temporadas[i].fechaFinTex}</td>
                                 <td align="right">${ response.temporadas[i].fechaTex}</td>
                                 <td align="right">
                                     <button type="button" class="btn btn-warning btn-xs" onclick="BorrarTemporada('${response.temporadas[i].idTex}')">

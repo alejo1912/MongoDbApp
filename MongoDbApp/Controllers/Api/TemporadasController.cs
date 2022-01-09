@@ -33,6 +33,8 @@ namespace MongoDbApp.Controllers.Api
             {
                 item.idTex = item.id.ToString();
                 item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
+                item.fechaInicioTex = item.fechaInicio.ToString("yyyy-MM-dd", culture);
+                item.fechaFinTex = item.fechaFin.ToString("yyyy-MM-dd", culture);
             }
             if (temporadas != null || temporadas.Count() > 0)
             {
@@ -58,6 +60,9 @@ namespace MongoDbApp.Controllers.Api
                 if (temporada != null && temporada.id.Increment > 0)
                 {
                     temporada.idTex = temporada.id.ToString();
+                    temporada.fechaInicioTex = temporada.fechaInicio.ToString("yyyy-MM-dd", culture);
+                    temporada.fechaFinTex = temporada.fechaFin.ToString("yyyy-MM-dd", culture);
+
                     response.Message = "ok";
                     response.Ok = true;
                     var data = new { temporada, response };
