@@ -11,6 +11,7 @@ namespace MongoDbApp.Models
     {
         [BsonId]
         public ObjectId id { get; set; }
+        public string idTex { get; set; }
 
         /// <summary>
         /// Nombre juados
@@ -26,5 +27,6 @@ namespace MongoDbApp.Models
         /// fecha registro
         /// </summary>
         public DateTime fecha { get; set; }
+        public virtual string fechaTex { get; set; }
     }
 }

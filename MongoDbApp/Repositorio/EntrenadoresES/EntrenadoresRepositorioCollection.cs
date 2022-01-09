@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EntrenadoresES
 {
-    public class EntrenadoresRepositorioCollection : IEntrenadoresContradoCollection
+    public class EntrenadoresRepositorioCollection : IEntrenadoresContratoCollection
     {
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<Entrenadores> collectin;
@@ -18,13 +18,13 @@ namespace MongoDbApp.Repositorio.EntrenadoresES
             // si no encuentra la collection crea una nueva
             collectin = _repository.db.GetCollection<Entrenadores>("Entrenadores");
         }
-        public async Task DeleteEEntrenador(string id)
+        public async Task DeleteEntrenador(string id)
         {
             var filtro = Builders<Entrenadores>.Filter.Eq(x => x.id, new MongoDB.Bson.ObjectId(id));
             await collectin.DeleteOneAsync(filtro);
         }
 
-        public async Task<Entrenadores> GetEntrenadoreById(string id)
+        public async Task<Entrenadores> GetEntrenadorById(string id)
         {
             Entrenadores entrenadores = new Entrenadores();
             try

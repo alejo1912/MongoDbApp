@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EntrenadoresES
 {
-    public interface IEntrenadoresContradoCollection
+    public interface IEntrenadoresContratoCollection
     {
         Task InsertEntrenador(Entrenadores entidad);
         Task UpdateEntrenador(Entrenadores entidad);
-        Task DeleteEEntrenador(string id);
+        Task DeleteEntrenador(string id);
 
         Task<List<Entrenadores>> GetListEntrenadores();
-        Task<Entrenadores> GetEntrenadoreById(string id);
+        Task<Entrenadores> GetEntrenadorById(string id);
     }
 }
