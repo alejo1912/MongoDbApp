@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EquiposES
 {
-    public interface IEquiposContradoCollection
+    public interface IEquiposContratoCollection
     {
         Task InsertEquipo(Equipos entidad);
         Task UpdateEquipo(Equipos entidad);

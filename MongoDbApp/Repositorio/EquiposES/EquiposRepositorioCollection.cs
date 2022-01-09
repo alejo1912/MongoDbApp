@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EquiposES
 {
-    public class EquiposRepositorioCollection : IEquiposContradoCollection
+    public class EquiposRepositorioCollection : IEquiposContratoCollection
     {
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<Equipos> collectin;

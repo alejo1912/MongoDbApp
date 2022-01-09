@@ -8,7 +8,16 @@ namespace WebFrontEnd.Controllers
 {
     public class EquiposController : Controller
     {
-        public IActionResult Index()
+        public IActionResult GestionEquipos(string id)
+        {
+            ViewBag.idString = "";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                ViewBag.idString = id;
+            }
+            return View();
+        }
+        public IActionResult GetEquipos()
         {
             return View();
         }
