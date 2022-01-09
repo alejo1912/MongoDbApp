@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.ArbitrosES
 {
-    public class ArbitrosRepositorioCollection : IArbitrosContradoCollection
+    public class ArbitrosRepositorioCollection : IArbitrosContratoCollection
     {
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<Arbitros> collectin;
@@ -38,7 +38,7 @@ namespace MongoDbApp.Repositorio.ArbitrosES
             return arbitros;
         }
 
-        public async Task<List<Arbitros>> GetListArbitross()
+        public async Task<List<Arbitros>> GetListArbitros()
         {
             return await collectin.FindAsync(new BsonDocument()).Result.ToListAsync();
         }

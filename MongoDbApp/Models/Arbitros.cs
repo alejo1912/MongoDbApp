@@ -11,15 +11,15 @@ namespace MongoDbApp.Models
     {
         [BsonId]
         public ObjectId id { get; set; }
-
-        /// <summary>
-        /// Nombre juados
-        /// </summary>
+        public virtual string idTex { get; set; }
         public string nombre { get; set; }
+        public int numero { get; set; }
+        public string documento { get; set; }
 
         /// <summary>
         /// fecha registro
         /// </summary>
         public DateTime fecha { get; set; }
+        public virtual string  fechaTex { get; set; }
     }
 }

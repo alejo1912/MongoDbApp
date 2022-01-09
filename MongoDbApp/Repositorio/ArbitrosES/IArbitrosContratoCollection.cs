@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.ArbitrosES
 {
-    public interface IArbitrosContradoCollection
+    public interface IArbitrosContratoCollection
     {
         Task InsertArbitro(Arbitros entidad);
         Task UpdateArbitro(Arbitros entidad);
         Task DeleteArbitro(string id);
 
-        Task<List<Arbitros>> GetListArbitross();
+        Task<List<Arbitros>> GetListArbitros();
         Task<Arbitros> GetArbitroById(string id);
     }
 }
