@@ -45,7 +45,7 @@ namespace MongoDbApp.Controllers.Api
 
         [Route("[action]", Name = "GetUnTemporadaById")]
         [HttpGet]
-        public async Task<IActionResult> GetUnTemporadaById(string id)
+        public async Task<IActionResult> GetUnaTemporadaById(string id)
         {
             ResponseApp response = new ResponseApp()
             {
