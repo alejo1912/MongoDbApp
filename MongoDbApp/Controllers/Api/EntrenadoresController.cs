@@ -28,18 +28,18 @@ namespace MongoDbApp.Controllers.Api
         {
             bool ok = false;
             string mensaje = "Sin Datos";
-            var arbitros = await Task.Run(() => _repositoryEntrenadores.GetListEntrenadores());
-            foreach (var item in arbitros)
+            var entrenadores = await Task.Run(() => _repositoryEntrenadores.GetListEntrenadores());
+            foreach (var item in entrenadores)
             {
                 item.idTex = item.id.ToString();
                 item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
             }
-            if (arbitros != null || arbitros.Count() > 0)
+            if (entrenadores != null || entrenadores.Count() > 0)
             {
                 mensaje = "ok";
                 ok = true;
             }
-            var data = new { arbitros, ok, mensaje };
+            var data = new { entrenadores, ok, mensaje };
             return Ok(data);
         }
 

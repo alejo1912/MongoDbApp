@@ -21,7 +21,7 @@ namespace MongoDbApp.Models
         /// <summary>
         /// numero camiseta
         /// </summary>
-        public int numero { get; set; }
+        public string documento { get; set; }
 
         /// <summary>
         /// fecha registro

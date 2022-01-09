@@ -9,5 +9,18 @@ namespace WebFrontEnd.Controllers
 {
     public class EntrenadoresController : Controller
     {
+        public IActionResult GestionEntrenadores(string id)
+        {
+            ViewBag.idString = "";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                ViewBag.idString = id;
+            }
+            return View();
+        }
+        public IActionResult GetEntrenadores()
+        {
+            return View();
+        }
     }
 }

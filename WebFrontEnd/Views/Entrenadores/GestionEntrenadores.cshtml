@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewData["Title"] = "GestionEntrenadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-top:67px;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#home1">Gestión Árbitros</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="card o-hidden border-0 shadow-lg my-n2">
+    <div class="tab-content">
+        <br />
+        @* Persona *@
+        <div class="tab-pane active" id="home1">
+            <form class="user" style="margin:2%">
+                <div class="form-group row">
+                    <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                        <input type="number" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Nombre"><span style="color:red">*</span>Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="documento">Documento Identidad</label>
+                        <input type="text" class="form-control" id="documento" name="documento" placeholder="Documento Identidad" required>
+                    </div>
+
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="btnCrear">.</label>
+                        <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var update = false;
+    var idText = "";
+
+    $(document).ready(function () {
+        getEntrenadores();
+    });
+
+    $("#btnCrear").click(function () {
+        var data = {
+            idTex: idText,
+            nombre: $("#nombre").val(),
+            documento: $("#documento").val(),
+        }
+        var entidad = JSON.stringify(data);
+        if (update == false) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Entrenadores/CreateEntrenador',
+                'type': 'POST',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else if (idText != "" && idText != undefined && idText != NaN) {
+            $.ajax({
+                url: 'https://localhost:44331/api/Entrenadores/UpdateEntrenador',
+                'type': 'PUT',
+                data: entidad,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                traditional: true,
+                async: true,
+                dataType: "JSON",
+                success: function (ok) {
+                    if (ok) {
+                        toastr.success("success");
+                    } else {
+                        toastr.warning(ok.mensaje);
+                    }
+                },
+                complete: function () {
+
+                },
+                error: function (data) {
+                    toastr.error("No pudimos completar tu solicitud!");
+                }
+            });
+        }
+        else {
+            toastr.warning("selecciona una accion!");
+        }
+    });
+
+    function getEntrenadores() {
+        var id= '@ViewBag.idString';
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Entrenadores/GetUnEntrenadorById';
+            var url = uri + '?' + $.param({ "id": id });
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+                    $("#idText").val("");
+                    $("#nombre").val("");
+                    $("#documento").val("");
+
+                    if (data.response.ok) {
+                        toastr.success(data.response.message);
+                        update = true;
+
+                        idText = data.entrenador.idTex;
+                        $("#idText").val(data.entrenador.idTex);
+                        $("#nombre").val(data.entrenador.nombre);
+                        $("#documento").val(data.entrenador.documento);
+
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                },
+                error: function (jQXHR) {
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+</script>

@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewData["Title"] = "GetEntrenadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3" style="margin-top:57px;">
+
+    <div class="card-header">
+        <i class="fa fa-table"></i> @ViewBag.Titulo &emsp;
+    </div>
+    <div class="card-body">
+        <div class="panel-body-busqueda">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover display compact dataTable" id="tableEntrenadores">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Editar</th>
+                            <th style="text-align:center">Nombre</th>
+                            <th style="text-align:center">Documento</th>
+                            <th style="text-align:center">Fecha</th>
+                            <th style="text-align:center">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetEntrenadores();
+    });
+
+    function GetEntrenadores() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Entrenadores/GetAllListEntrenadores',
+            method: 'get',
+            data: {},
+            traditional: true,
+            async: true,
+            dataType: "json",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (response) {
+                $('#tableEntrenadores').DataTable().clear();
+                $('#tableEntrenadores').DataTable().destroy();
+                $('#tableEntrenadores').find('tbody').empty();
+                if (response.ok) {
+                    toastr.success(response.mensaje, "Atención!");
+                    for (var i = 0; i < response.entrenadores.length; i++) {
+                        $('#tableEntrenadores').find('tbody').append(
+                            `<tr id="">
+                                <td align="right">
+                                    <button type="button" class="btn btn-success btn-xs" onclick="GestionEntrenadores('${response.entrenadores[i].idTex}')">
+                                        <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
+                                    </button>
+                                </td>
+                                <td align="right">${ response.entrenadores[i].nombre}</td>
+                                <td align="right">${ response.entrenadores[i].documento}</td>
+                                <td align="right">${ response.entrenadores[i].fechaTex}</td>
+                                <td align="right">
+                                    <button type="button" class="btn btn-warning btn-xs" onclick="BorrarEntrenador('${response.entrenadores[i].idTex}')">
+                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
+                                    </button>
+                                </td>
+                            </tr >`);
+                    }
+                } else {
+                    toastr.error(response.mensaje, "Error");
+                };
+            },
+            error: function (jQXHR) {
+                toastr.error('No pudimos procesar su Solicitud!')
+            },
+            complete: function () {
+                $('#tableEntrenadores').DataTable({
+                    dom: "<''<'col-md-6'l><'col-md-6'f>>t<'col-md-4'i><'col-md-8 text-right'pB>",
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    buttons: []
+                });
+            }
+        });
+    }
+
+    function GestionEntrenadores(id) {
+        if (id != "" && id != undefined && id != NaN) {
+            var url = '?' + $.param({ "id": id });
+            window.location.href = "/Entrenadores/GestionEntrenadores/" + url;
+        }
+    };
+
+    function BorrarEntrenador(id) {
+        if (id != "" && id != undefined && id != NaN) {
+            var uri = 'https://localhost:44331/api/Entrenadores/DeleteEntrenador';
+            var url = uri + '?' + $.param({ "idString": id });
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (ok) {
+                    
+                    if (ok) {
+                        toastr.success("success!");
+                    } else {
+                        toastr.warning("No pudimos procesar su Solicitud!");
+                    };
+                    GetEntrenadores();
+                },
+                error: function (jQXHR) {
+                    
+                    toastr.error('error, No pudimos procesar su Solicitud!');
+                }
+            });
+        }
+    };
+
+</script>
+
