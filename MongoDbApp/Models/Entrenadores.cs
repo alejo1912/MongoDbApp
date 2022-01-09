@@ -12,6 +12,7 @@ namespace MongoDbApp.Models
         [BsonId]
         public ObjectId id { get; set; }
         public string idTex { get; set; }
+        public string idEquipo { get; set; }
 
         /// <summary>
         /// Nombre juados

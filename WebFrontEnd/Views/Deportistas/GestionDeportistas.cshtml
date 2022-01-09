@@ -42,7 +42,9 @@
                     </div> 
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="idEquipo">Equipo</label>
-                        <input type="text" class="form-control" id="idEquipo" name="idEquipo" placeholder="Equipo" required>
+                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                        </select>
                     </div>
 
                     <div class="col-sm-3 mb-3 mb-sm-3">
@@ -57,13 +59,16 @@
 <script>
     var update = false;
     var idText = "";
+    var idEquipo = "";
 
     $(document).ready(function () {
+        $("#idEquipo").select2();
         getDeportista();
+        DropList();
     });
 
     $("#btnCrear").click(function () {
-        debugger
+        
         var data = {
             idTex: idText,
             nombre: $("#nombre").val(),
@@ -87,7 +92,7 @@
                 async: true,
                 dataType: "JSON",
                 success: function (ok) {
-                    debugger
+                    
                     if (ok) {
                         toastr.success("success");
                     } else {
@@ -98,7 +103,7 @@
 
                 },
                 error: function (data) {
-                    debugger
+                    
                     toastr.error("No pudimos completar tu solicitud!");
                 }
             });
@@ -116,7 +121,7 @@
                 async: true,
                 dataType: "JSON",
                 success: function (ok) {
-                    debugger
+                    
                     if (ok) {
                         toastr.success("success");
                     } else {
@@ -127,7 +132,7 @@
 
                 },
                 error: function (data) {
-                    debugger
+                    
                     toastr.error("No pudimos completar tu solicitud!");
                 }
             });
@@ -138,7 +143,7 @@
     });
 
     function getDeportista() {
-        debugger
+        
         var id= '@ViewBag.idString';
         if (id != "" && id != undefined && id != NaN) {
             var uri = 'https://localhost:44331/api/Deportistas/GetUnDeportistaById';
@@ -147,7 +152,7 @@
                 url: url,
                 type: 'get',
                 success: function (data) {
-                    debugger
+                    
                     $("#idText").val("");
                     $("#nombre").val("");
                     $("#numero").val("");
@@ -165,6 +170,7 @@
                         $("#numero").val(data.deportista.numero);
                         $("#posision").val(data.deportista.posision);
                         $("#documento").val(data.deportista.documento);
+                        idEquipo=data.deportista.idEquipo;
                         $("#idEquipo").val(data.deportista.idEquipo);
 
                     } else {
@@ -177,6 +183,41 @@
             });
         }
     };
+
+    function DropList() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Equipos/GetAllListEquipos',
+            method: 'get',
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                $('#idEquipo').empty();
+                debugger
+                if (data.ok) {
+                    $(data.equipos).each(function (i) {
+                        $('#idEquipo').append($('<option>', {
+                            value: data.equipos[i].idTex,
+                            text: data.equipos[i].nombreEquipo,
+                        }));
+                    });
+                    if (idEquipo!="") {
+                        $("#idEquipo").val(idEquipo).trigger('change.select2');
+                    }
+                } else {
+                    toastr.warning(data.mensaje);
+                }
+            },
+            error: function (data) {
+                toastr.error("error");
+            }
+        });
+    }
 
 </script>
 
