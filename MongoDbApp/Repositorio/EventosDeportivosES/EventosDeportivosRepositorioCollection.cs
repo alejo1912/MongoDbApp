@@ -19,17 +19,8 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
             collectinEncuentrosDeportivos = _repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
             collectinResultados = _repository.db.GetCollection<Resultados>("Resultados");
         }
-        public async Task DeleteEncuentrosDeportivo(string id)
-        {
-            var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, new MongoDB.Bson.ObjectId(id));
-            await collectinEncuentrosDeportivos.DeleteOneAsync(filtro);
-        }
 
-        public async Task DeleteResultado(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        #region EncuentrosDeportivos
         public async Task<EncuentrosDeportivos> GetEncuentrosDeportivoById(string id)
         {
             EncuentrosDeportivos encuentros = new EncuentrosDeportivos();
@@ -49,12 +40,29 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<Resultados>> GetListResultados()
+        public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<TablaDePosiciones>> GetListTablaDePosicionesSmart(string busqueda)
+        public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
+        public async Task DeleteEncuentrosDeportivo(string id)
+        {
+            var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, new MongoDB.Bson.ObjectId(id));
+            await collectinEncuentrosDeportivos.DeleteOneAsync(filtro);
+        }
+
+        #region Resultados
+        public async Task DeleteResultado(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<Resultados>> GetListResultados()
         {
             throw new System.NotImplementedException();
         }
@@ -64,17 +72,7 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
             throw new System.NotImplementedException();
         }
 
-        public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task InsertResultado(Resultados entidad)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
             throw new System.NotImplementedException();
         }
@@ -83,5 +81,14 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
         {
             throw new System.NotImplementedException();
         }
+        #endregion
+
+
+        #region TablaDePosiciones
+        public async Task<List<TablaDePosiciones>> GetListTablaDePosicionesSmart(string busqueda)
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
     }
 }
