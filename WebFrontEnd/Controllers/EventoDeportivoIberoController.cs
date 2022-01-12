@@ -9,7 +9,16 @@ namespace WebFrontEnd.Controllers
     public class EventoDeportivoIberoController : Controller
     {
         #region Deportistas
-        public IActionResult Index()
+        public IActionResult GestionEvento(string id)
+        {
+            ViewBag.idString = "";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                ViewBag.idString = id;
+            }
+            return View();
+        }
+        public IActionResult GetEventos()
         {
             return View();
         }
