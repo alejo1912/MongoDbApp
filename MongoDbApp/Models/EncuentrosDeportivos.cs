@@ -13,6 +13,8 @@ namespace MongoDbApp.Models
         public string idTex { get; set; }
         public string idTemporada { get; set; }
 
+        public virtual string Temporada { get; set; }
+
         public string idEquipoA { get; set; }
         public string idEquipoB { get; set; }
 

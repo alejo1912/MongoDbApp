@@ -4,6 +4,7 @@ using MongoDbApp.Models;
 using MongoDbApp.Models.ModelDbConexion;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MongoDbApp.Repositorio.EventosDeportivosES
@@ -42,22 +43,76 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
         public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
+            //var builder = Builders<EncuentrosDeportivos>.Update.Set(x => x.id, entidad.id);
+
+            //foreach (PropertyInfo prop in entidad.GetType().GetProperties())
+            //{
+            //    var value = entidad.GetType().GetProperty(prop.Name).GetValue(entidad, null);
+
+            //    if (prop.Name != "id")
+            //    {
+            //        if (value != null)
+            //        {
+            //            builder = builder.Set(prop.Name, value);
+            //        }
+            //        else
+            //        {
+            //            builder = builder.Unset(prop.Name);
+            //        }
+
+            //    }
+            //}
+            //var filter = Builders<EncuentrosDeportivos>.Filter;
+            //var filter_def = filter.Eq(x => x.id, entidad.id);
+
+
+            //await collectinEncuentrosDeportivos.InsertOneAsync(filter_def, entidad, new ReplaceOptions { IsUpsert = true });
+
+            await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
             entidad.fecha = DateTime.Now;
             await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
         }
 
         public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
-            var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, entidad.id);
-            entidad.fecha = DateTime.Now;
-            await collectinEncuentrosDeportivos.ReplaceOneAsync(filtro, entidad);
+            var builder = Builders<EncuentrosDeportivos>.Update.Set(x => x.id, entidad.id);
+
+            foreach (PropertyInfo prop in entidad.GetType().GetProperties())
+            {
+                var value = entidad.GetType().GetProperty(prop.Name).GetValue(entidad, null);
+
+                if (prop.Name != "id")
+                {
+                    if (value != null)
+                    {
+                        builder = builder.Set(prop.Name, value);
+                    }
+                    else
+                    {
+                        builder = builder.Unset(prop.Name);
+                    }
+
+                }
+            }
+
+            var filter = Builders<EncuentrosDeportivos>.Filter;
+            var filter_def = filter.Eq(x => x.id, entidad.id);
+
+            await collectinEncuentrosDeportivos.UpdateOneAsync(filter_def, builder);
+
+
+            //var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, entidad.id);
+            //entidad.fecha = DateTime.Now;
+            //await collectinEncuentrosDeportivos.ReplaceOneAsync(filtro, entidad);
         }
-        #endregion
+
         public async Task DeleteEncuentrosDeportivo(string id)
         {
             var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, new MongoDB.Bson.ObjectId(id));
             await collectinEncuentrosDeportivos.DeleteOneAsync(filtro);
         }
+        #endregion
+
 
         #region Resultados
         public async Task DeleteResultado(string id)
