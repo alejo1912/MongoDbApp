@@ -24,9 +24,9 @@ namespace MongoDbApp.Models
         public int numero { get; set; }
 
         /// <summary>
-        /// posision en el area de juego ejemplo: DC defensa central
+        /// posicion en el area de juego ejemplo: DC defensa central
         /// </summary>
-        public string posision { get; set; }
+        public string posicion { get; set; }
 
         /// <summary>
         /// identificacion del jugador

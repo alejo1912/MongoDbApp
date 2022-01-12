@@ -29,12 +29,12 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="numero">Numero</label>
-                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Numero Jugador" required>
+                        <label class="col-form-label" name="numero">Número</label>
+                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número Jugador" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="posision">Posision</label>
-                        <input type="text" class="form-control" id="posision" name="posision" placeholder="Posision" required>
+                        <label class="col-form-label" name="posicion">Posición</label>
+                        <input type="text" class="form-control" id="posicion" name="posicion" placeholder="Posición" required>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="documento">Documento Identidad</label>
@@ -73,7 +73,7 @@
             idTex: idText,
             nombre: $("#nombre").val(),
             numero: $("#numero").val(),
-            posision: $("#posision").val(),
+            posicion: $("#posicion").val(),
             documento: $("#documento").val(),
             idEquipo: $("#idEquipo").val()
         }
@@ -156,7 +156,7 @@
                     $("#idText").val("");
                     $("#nombre").val("");
                     $("#numero").val("");
-                    $("#posision").val("");
+                    $("#posicion").val("");
                     $("#documento").val("");
                     $("#idEquipo").val("");
 
@@ -168,7 +168,7 @@
                         $("#idText").val(data.deportista.idTex);
                         $("#nombre").val(data.deportista.nombre);
                         $("#numero").val(data.deportista.numero);
-                        $("#posision").val(data.deportista.posision);
+                        $("#posicion").val(data.deportista.posicion);
                         $("#documento").val(data.deportista.documento);
                         idEquipo=data.deportista.idEquipo;
                         $("#idEquipo").val(data.deportista.idEquipo);
