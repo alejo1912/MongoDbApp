@@ -41,6 +41,12 @@
                         <select id="idEquipoB" name="idEquipoB" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
                         </select>
+                    </div> 
+                    <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="idArbitro">Árbitro</label>
+                        <select id="idArbitro" name="idArbitro" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Árbitro </option>
+                        </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="btnCrear">.</label>
@@ -57,13 +63,16 @@
     var idEquipoA = "";
     var idEquipoB = "";
     var idTemporada = "";
+    var idArbitro = "";
 
     $(document).ready(function () {
         $("#idEquipoA").select2();
         $("#idEquipoB").select2();
         $("#idTemporada").select2();
+        $("#idArbitro").select2();
         DropListEquipos();
         DropListTemporadas();
+        DropListArbitro();
     });
 
     $("#btnCrear2").click(function () {
@@ -239,6 +248,41 @@
                     });
                     if (idTemporada != "") {
                         $("#idTemporada").val(idTemporada).trigger('change.select2');
+                    }
+                } else {
+                    toastr.warning(data.mensaje);
+                }
+            },
+            error: function (data) {
+                toastr.error("error");
+            }
+        });
+    }
+
+    function DropListArbitro() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Arbitros/GetAllListArbitros',
+            method: 'get',
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Authorization': 'Bearer '
+                    + localStorage.getItem("accessToken")
+            },
+            success: function (data) {
+                $('#idArbitro').empty();
+                debugger
+                if (data.ok) {
+                    $(data.arbitros).each(function (i) {
+                        $('#idArbitro').append($('<option>', {
+                            value: data.arbitros[i].idTex,
+                            text: data.arbitros[i].nombre,
+                        }));
+                    });
+                    if (idArbitro != "") {
+                        $("#idArbitro").val(idArbitro).trigger('change.select2');
                     }
                 } else {
                     toastr.warning(data.mensaje);
