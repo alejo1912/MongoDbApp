@@ -37,17 +37,20 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
         public async Task<List<EncuentrosDeportivos>> GetListEncuentrosDeportivos()
         {
-            throw new System.NotImplementedException();
+            return await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
         }
 
         public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
-            throw new System.NotImplementedException();
+            entidad.fecha = DateTime.Now;
+            await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
         }
 
         public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
-            throw new System.NotImplementedException();
+            var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, entidad.id);
+            entidad.fecha = DateTime.Now;
+            await collectinEncuentrosDeportivos.ReplaceOneAsync(filtro, entidad);
         }
         #endregion
         public async Task DeleteEncuentrosDeportivo(string id)
