@@ -66,6 +66,7 @@
     var idArbitro = "";
 
     $(document).ready(function () {
+        getEvento();
         $("#idEquipoA").select2();
         $("#idEquipoB").select2();
         $("#idTemporada").select2();
@@ -75,16 +76,19 @@
         DropListArbitro();
     });
 
-    $("#btnCrear2").click(function () {
+    $("#btnCrear").click(function () {
 
         var data = {
             idTex: idText,
-            nombreEquipo: $("#nombreEquipo").val(),
+            idTemporada: $("#idTemporada").val(),
+            idEquipoA: $("#idEquipoA").val(),
+            idEquipoB: $("#idEquipoB").val(),
+            idArbitro: $("#idArbitro").val(),
         }
         var entidad = JSON.stringify(data);
         if (update == false) {
             $.ajax({
-                url: 'https://localhost:44331/api/Equipos/CreateEquipo',
+                url: 'https://localhost:44331/api/EventosDeportivos/CreateEncuentrosDeportivo',
                 'type': 'POST',
                 data: entidad,
                 headers: {
@@ -111,7 +115,7 @@
         }
         else if (idText != "" && idText != undefined && idText != NaN) {
             $.ajax({
-                url: 'https://localhost:44331/api/Equipos/UpdateEquipo',
+                url: 'https://localhost:44331/api/EventosDeportivos/UpdateEncuentrosDeportivo',
                 'type': 'PUT',
                 data: entidad,
                 headers: {
@@ -142,24 +146,36 @@
     });
 
     function getEvento() {
-        var id= '@ViewBag.idString';
+        var id = '@ViewBag.idString';
+        debugger
         if (id != "" && id != undefined && id != NaN) {
-            var uri = 'https://localhost:44331/api/Equipos/GetUnEquipoById';
+            var uri = 'https://localhost:44331/api/EventosDeportivos/GetEncuentrosDeportivoById';
             var url = uri + '?' + $.param({ "id": id });
             $.ajax({
                 url: url,
                 type: 'get',
                 success: function (data) {
+                    debugger
                     $("#idText").val("");
-                    $("#nombreEquipo").val("");
+                    $("#idEquipoA").val("");
+                    $("#idEquipoB").val("");
+                    $("#idTemporada").val("");
+                    $("#idArbitro").val("");
 
                     if (data.response.ok) {
                         toastr.success(data.response.message);
                         update = true;
 
-                        idText = data.equipo.idTex;
-                        $("#idText").val(data.equipo.idTex);
-                        $("#nombreEquipo").val(data.equipo.nombreEquipo);
+                        idText = data.evento.idTex;
+                        $("#idText").val(data.evento.idTex);
+                        $("#idEquipoA").val(data.evento.idEquipoA);
+                        idEquipoA=data.evento.idEquipoA;
+                        $("#idEquipoB").val(data.evento.idEquipoB);
+                        idEquipoB=data.evento.idEquipoB;
+                        $("#idTemporada").val(data.evento.idTemporada);
+                        idTemporada=data.evento.idTemporada;
+                        $("#idArbitro").val(data.evento.idArbitro);
+                        idArbitro=data.evento.idArbitro;
 
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");
@@ -187,7 +203,7 @@
             success: function (data) {
                 //A
                 $('#idEquipoA').empty();
-                debugger
+                
                 if (data.ok) {
                     $(data.equipos).each(function (i) {
                         $('#idEquipoA').append($('<option>', {
@@ -203,7 +219,7 @@
                 }
                 ///B
                 $('#idEquipoB').empty();
-                debugger
+                
                 if (data.ok) {
                     $(data.equipos).each(function (i) {
                         $('#idEquipoB').append($('<option>', {
@@ -238,7 +254,7 @@
             },
             success: function (data) {
                 $('#idTemporada').empty();
-                debugger
+                
                 if (data.ok) {
                     $(data.temporadas).each(function (i) {
                         $('#idTemporada').append($('<option>', {
@@ -273,7 +289,7 @@
             },
             success: function (data) {
                 $('#idArbitro').empty();
-                debugger
+                
                 if (data.ok) {
                     $(data.arbitros).each(function (i) {
                         $('#idArbitro').append($('<option>', {
