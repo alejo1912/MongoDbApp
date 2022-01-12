@@ -68,7 +68,6 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
             //await collectinEncuentrosDeportivos.InsertOneAsync(filter_def, entidad, new ReplaceOptions { IsUpsert = true });
 
-            await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
             entidad.fecha = DateTime.Now;
             await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
         }
