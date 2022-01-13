@@ -53,9 +53,18 @@
         $("#fechaInicio").val();
         $("#fechaFin").val();
 
-        $('.datetimepicker').datetimepicker({
-            format: 'YYYY/MM/DD'
+        $("#datetimepicker").datepicker({
+            dateFormat: 'YYYY/MM/DD',
+            changeMonth: true,
+            changeYear: true
         });
+
+        //jQuery('.datetimepicker').datetimepicker({
+        //    timepicker: false,
+        //    mask: true,
+        //    formatDate: 'YYYY/MM/DD'
+            
+        //});
         getTemporada();
     });
 
@@ -67,6 +76,7 @@
             fechaInicio: $("#fechaInicio").val(),
             fechaFin: $("#fechaFin").val()
         }
+        debugger
         var entidad = JSON.stringify(data);
         if (update == false) {
             $.ajax({
