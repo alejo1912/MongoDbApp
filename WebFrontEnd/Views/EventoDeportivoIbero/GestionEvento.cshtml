@@ -25,6 +25,10 @@
                         <input type="text" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
+                        <label class="col-form-label" name="Encuentro"><span style="color:red">*</span>Encuentro</label>
+                        <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">                      
+                    </div> 
+                    <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="idTemporada">Temporada-Campeonato</label>
                         <select id="idTemporada" name="idTemporada" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
@@ -32,7 +36,7 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="idEquipoA">Equipo A</label>
-                        <select id="idEquipoA" name="idEquipoA" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <select id="idEquipoA" name="idEquipoA" class="form-control-lg bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
                         </select>
                     </div>
@@ -84,6 +88,7 @@
             idEquipoA: $("#idEquipoA").val(),
             idEquipoB: $("#idEquipoB").val(),
             idArbitro: $("#idArbitro").val(),
+            Encuentro: $("#Encuentro").val(),
         }
         var entidad = JSON.stringify(data);
         if (update == false) {
@@ -161,6 +166,7 @@
                     $("#idEquipoB").val("");
                     $("#idTemporada").val("");
                     $("#idArbitro").val("");
+                    $("#Encuentro").val("");
 
                     if (data.response.ok) {
                         toastr.success(data.response.message);
@@ -168,6 +174,7 @@
 
                         idText = data.evento.idTex;
                         $("#idText").val(data.evento.idTex);
+                        $("#Encuentro").val(data.evento.Encuentro);
                         $("#idEquipoA").val(data.evento.idEquipoA);
                         idEquipoA=data.evento.idEquipoA;
                         $("#idEquipoB").val(data.evento.idEquipoB);

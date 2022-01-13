@@ -10,6 +10,8 @@ namespace MongoDbApp.Models
     {
         [BsonId]
         public ObjectId id { get; set; }
+
+        public string Encuentro { get; set; }
         public string idTex { get; set; }
         public string idTemporada { get; set; }
 
@@ -25,5 +27,7 @@ namespace MongoDbApp.Models
         /// </summary>
         public DateTime fecha { get; set; }
         public string fechaTex { get; set; }
+
+        public List<Resultados> ListResultados { get; set; }
     }
 }
