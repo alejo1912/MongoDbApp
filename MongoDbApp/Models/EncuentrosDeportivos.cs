@@ -28,6 +28,6 @@ namespace MongoDbApp.Models
         public DateTime fecha { get; set; }
         public string fechaTex { get; set; }
 
-        public List<Resultados> ListResultados { get; set; }
+        public Resultados listResultados { get; set; }
     }
 }
