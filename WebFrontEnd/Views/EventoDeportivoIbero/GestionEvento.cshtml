@@ -26,8 +26,8 @@
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="Encuentro"><span style="color:red">*</span>Encuentro</label>
-                        <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">                      
-                    </div> 
+                        <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">
+                    </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="idTemporada">Temporada-Campeonato</label>
                         <select id="idTemporada" name="idTemporada" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
@@ -45,12 +45,36 @@
                         <select id="idEquipoB" name="idEquipoB" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
                         </select>
-                    </div> 
+                    </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="idArbitro">Árbitro</label>
                         <select id="idArbitro" name="idArbitro" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Árbitro </option>
                         </select>
+                    </div>
+                    <hr style="width:100%;color:blue;" />
+                    <div class="form-group row col-sm-12 mb-12 mb-sm-12">
+                        <h5 style="text-align:center" class="col-sm-12 mb-12 mb-sm-12">Marcador</h5>
+                        <div class="col-sm-3 mb-3 mb-sm-3">
+                            <label class="col-form-label" name="idEquipoB">Equipo</label>
+                            <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                                <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 mb-3 mb-sm-3">
+                            <label class="col-form-label" name="idEquipoB">Jugador</label>
+                            <select id="idDeportista" name="idDeportista" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                                <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 mb-3 mb-sm-3">
+                            <label class="col-form-label" name="goles"><span style="color:red">*</span>Gol</label>
+                            <input type="number" max="100" class="form-control" id="goles" name="goles" placeholder="goles">
+                        </div>
+                        <div class="col-sm-3 mb-3 mb-sm-3">
+                            <label class="col-form-label" name="btnAdd">.</label>
+                            <button type="button" class="form-control btn-secondary" id="btnAdd" placeholder="Add" style="background: #4e73df;font-size:15px;color:white;">Anotar</button>
+                        </div>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
                         <label class="col-form-label" name="btnCrear">.</label>
@@ -68,7 +92,7 @@
     var idEquipoB = "";
     var idTemporada = "";
     var idArbitro = "";
-
+    var ListResultados = [];
     $(document).ready(function () {
         getEvento();
         $("#idEquipoA").select2();
@@ -78,14 +102,27 @@
         DropListEquipos();
         DropListTemporadas();
         DropListArbitro();
+        DropListJugador();
     });
+
+    $("#btnAdd").click(function Add() {
+        debugger
+        var idEquipo = $("#idEquipo").val();
+        var idDeportista = $("#idDeportista").val();
+        var goles = $("#goles").val();
+
+        b = { idEquipo: idEquipo, idDeportista: idDeportista, goles: goles};            
+        ListResultados.push(b);
+    });
+
 
     $("#btnCrear").click(function () {
 
-        var ListResultados = [
-            { idEquipo: "123EWQEW", idDeportista: "321312", goles: 2 },
-            { idEquipo: "2132332", idDeportista: "23232", goles: 1 },
-        ];
+
+        //var ListResultados = [
+        //    { idEquipo: "123EWQEW", idDeportista: "321312", goles: 2 },
+        //    { idEquipo: "2132332", idDeportista: "23232", goles: 1 },
+        //];
         var data = {
             idTex: idText,
             idTemporada: $("#idTemporada").val(),
@@ -246,6 +283,18 @@
                 } else {
                     toastr.warning(data.mensaje);
                 }
+
+                ///Add
+                $('#idEquipo').empty();
+
+                if (data.ok) {
+                    $(data.equipos).each(function (i) {
+                        $('#idEquipo').append($('<option>', {
+                            value: data.equipos[i].idTex,
+                            text: data.equipos[i].nombreEquipo,
+                        }));
+                    });
+                } 
             },
             error: function (data) {
                 toastr.error("error");
@@ -316,6 +365,33 @@
                 } else {
                     toastr.warning(data.mensaje);
                 }
+            },
+            error: function (data) {
+                toastr.error("error");
+            }
+        });
+    }
+
+    function DropListJugador() {
+        $.ajax({
+            url: 'https://localhost:44331/api/Deportistas/GetAllListDeportistas',
+            method: 'get',
+            traditional: true,
+            async: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $('#idDeportista').empty();
+                debugger
+                if (data.ok) {
+                    $(data.deportistas).each(function (i) {
+                        $('#idDeportista').append($('<option>', {
+                            value: data.deportistas[i].idTex,
+                            text: data.deportistas[i].nombre,
+                        }));
+                    });
+
+                } 
             },
             error: function (data) {
                 toastr.error("error");
