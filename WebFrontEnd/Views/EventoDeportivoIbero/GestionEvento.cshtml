@@ -86,6 +86,7 @@
     </div>
 </div>
 <script>
+
     var update = false;
     var idText = "";
     var idEquipoA = "";
@@ -109,10 +110,18 @@
         debugger
         var idEquipo = $("#idEquipo").val();
         var idDeportista = $("#idDeportista").val();
-        var goles = $("#goles").val();
+        var goles = parseInt($("#goles").val());
 
-        b = { idEquipo: idEquipo, idDeportista: idDeportista, goles: goles};            
-        ListResultados.push(b);
+        var objIndex = ListResultados.findIndex((obj => obj.idEquipo == idEquipo && obj.idDeportista == idDeportista));
+        //Update object's goles property.
+        if (objIndex >=0) {
+            ListResultados[objIndex].goles += goles;
+        }
+        else {
+            debugger
+            b = { idEquipo: idEquipo, idDeportista: idDeportista, goles: goles };
+            ListResultados.push(b);
+        }
     });
 
 
