@@ -82,14 +82,19 @@
 
     $("#btnCrear").click(function () {
 
-        var ListResultados = new Object();
-         ListResultados = {
-            idEquipo: "123EWQEW",
-            idDeportista: "321312",
-            goles: 2,
-        }
 
-       
+        var ListResultados2 =
+        {
+            "ListResultados": [
+                                { idEquipo: "123EWQEW", idDeportista: "321312", goles: 2 },
+                                { idEquipo: "2132332", idDeportista: "23232", goles: 1 },
+                              ]
+        };
+
+        var ListResultados = [
+            { idEquipo: "123EWQEW", idDeportista: "321312", goles: 2 },
+            { idEquipo: "2132332", idDeportista: "23232", goles: 1 },
+        ];
         var data = {
             idTex: idText,
             idTemporada: $("#idTemporada").val(),
