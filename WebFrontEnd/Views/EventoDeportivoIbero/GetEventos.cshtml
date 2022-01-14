@@ -16,6 +16,7 @@
                     <thead>
                         <tr>
                             <th style="text-align:center">Editar</th>
+                            <th style="text-align:center">Evento</th>
                             <th style="text-align:center">Fecha</th>
                             <th style="text-align:center">Acción</th>
                         </tr>
@@ -57,6 +58,7 @@
                                         <i class="fa fa-pencil-square"></i>&nbsp;Editar&nbsp;&nbsp;
                                     </button>
                                 </td>
+                                <td align="right">${ response.eventos[i].Encuentro}</td>
                                 <td align="right">${ response.eventos[i].fechaTex}</td>
                                 <td align="right">
                                     <button type="button" class="btn btn-warning btn-xs" onclick="BorrarEvento('${response.eventos[i].idTex}')">
