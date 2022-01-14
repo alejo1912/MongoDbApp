@@ -127,11 +127,6 @@
 
     $("#btnCrear").click(function () {
 
-
-        //var ListResultados = [
-        //    { idEquipo: "123EWQEW", idDeportista: "321312", goles: 2 },
-        //    { idEquipo: "2132332", idDeportista: "23232", goles: 1 },
-        //];
         var data = {
             idTex: idText,
             idTemporada: $("#idTemporada").val(),
@@ -141,7 +136,6 @@
             Encuentro: $("#Encuentro").val(),
             listResultados: ListResultados
         }
-        debugger
         var entidad = JSON.stringify(data);
         if (update == false) {
             $.ajax({
@@ -156,6 +150,7 @@
                 async: true,
                 dataType: "JSON",
                 success: function (ok) {
+                    debugger
                     if (ok) {
                         toastr.success("success");
                     } else {

@@ -30,11 +30,6 @@ namespace MongoDbApp.Controllers.Api
             bool ok = false;
             string mensaje = "Sin Datos";
             var eventos = await Task.Run(() => _repositoryEventosDeportivos.GetListEncuentrosDeportivos());
-            foreach (var item in eventos)
-            {
-                item.idTex = item.id.ToString();
-                item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
-            }
             if (eventos != null || eventos.Count() > 0)
             {
                 mensaje = "ok";
@@ -85,7 +80,8 @@ namespace MongoDbApp.Controllers.Api
             {
                 if (ModelState.IsValid)
                 {
-                    await Task.Run(() => _repositoryEventosDeportivos.InsertEncuentrosDeportivo(entidad));
+                  var evento=  await Task.Run(() => _repositoryEventosDeportivos.InsertEncuentrosDeportivo(entidad));
+                  return Ok(evento);
                 }
                 else
                 {
@@ -102,7 +98,6 @@ namespace MongoDbApp.Controllers.Api
                     }
                     return BadRequest(data);
                 }
-                return Created("Created", true);
             }
             catch (Exception x)
             {
