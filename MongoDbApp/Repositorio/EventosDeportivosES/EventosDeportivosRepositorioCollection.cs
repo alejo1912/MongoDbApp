@@ -1,9 +1,13 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using MongoDbApp.Models;
 using MongoDbApp.Models.ModelDbConexion;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -11,6 +15,7 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 {
     public class EventosDeportivosRepositorioCollection : IEventosDeportivosContradoCollection
     {
+        CultureInfo culture = new CultureInfo("en-US", true);
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<EncuentrosDeportivos> collectinEncuentrosDeportivos;
         private IMongoCollection<Resultados> collectinResultados;
@@ -38,38 +43,31 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
         public async Task<List<EncuentrosDeportivos>> GetListEncuentrosDeportivos()
         {
-            return await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
+             var eventos = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            foreach (var item in eventos)
+            {
+                item.idTex = item.id.ToString();
+                item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
+            }
+            return eventos;
         }
 
-        public async Task InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
+        public async Task<EncuentrosDeportivos> InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
-            //var builder = Builders<EncuentrosDeportivos>.Update.Set(x => x.id, entidad.id);
-
-            //foreach (PropertyInfo prop in entidad.GetType().GetProperties())
-            //{
-            //    var value = entidad.GetType().GetProperty(prop.Name).GetValue(entidad, null);
-
-            //    if (prop.Name != "id")
-            //    {
-            //        if (value != null)
-            //        {
-            //            builder = builder.Set(prop.Name, value);
-            //        }
-            //        else
-            //        {
-            //            builder = builder.Unset(prop.Name);
-            //        }
-
-            //    }
-            //}
-            //var filter = Builders<EncuentrosDeportivos>.Filter;
-            //var filter_def = filter.Eq(x => x.id, entidad.id);
-
-
-            //await collectinEncuentrosDeportivos.InsertOneAsync(filter_def, entidad, new ReplaceOptions { IsUpsert = true });
-
             entidad.fecha = DateTime.Now;
             await collectinEncuentrosDeportivos.InsertOneAsync(entidad);
+
+            entidad.idTex = entidad.id.ToString();
+            entidad.fechaTex = entidad.fecha.ToString("yyyy-MM-dd", culture);
+
+            if (!string.IsNullOrWhiteSpace(entidad.idTex)&& entidad.idTex!= "000000000000000000000000")
+            {
+                var x =_repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
+
+            }
+
+            return entidad;
         }
 
         public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
