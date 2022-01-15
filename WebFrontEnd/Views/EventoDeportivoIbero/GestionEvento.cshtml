@@ -18,71 +18,89 @@
     <div class="tab-content">
         <br />
         @* Persona *@
-        <div class="tab-pane active" id="home1">
-            <form class="user" style="margin:2%">
-                <div class="form-group row">
-                    <div class="col-sm-3 mb-3 mb-sm-3" hidden>
-                        <input type="text" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
-                    </div>
+    <div class="tab-pane active" id="home1">
+        <form class="user" style="margin:2%">
+            <div class="form-group row">
+                <div class="col-sm-3 mb-3 mb-sm-3" hidden>
+                    <input type="text" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="Encuentro"><span style="color:red">*</span>Encuentro</label>
+                    <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="idTemporada">Temporada-Campeonato</label>
+                    <select id="idTemporada" name="idTemporada" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                    </select>
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="idEquipoA">Equipo A</label>
+                    <select id="idEquipoA" name="idEquipoA" class="form-control-lg bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                    </select>
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="idEquipoB">Equipo B</label>
+                    <select id="idEquipoB" name="idEquipoB" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
+                    </select>
+                </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="idArbitro">Árbitro</label>
+                    <select id="idArbitro" name="idArbitro" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Árbitro </option>
+                    </select>
+                </div>
+                <hr style="width:100%;color:blue;" />
+                <div class="form-group row col-sm-12 mb-12 mb-sm-12">
+                    <h5 style="text-align:center" class="col-sm-12 mb-12 mb-sm-12">Marcador</h5>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="Encuentro"><span style="color:red">*</span>Encuentro</label>
-                        <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="idTemporada">Temporada-Campeonato</label>
-                        <select id="idTemporada" name="idTemporada" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" name="idEquipoB">Equipo</label>
+                        <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
                         </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="idEquipoA">Equipo A</label>
-                        <select id="idEquipoA" name="idEquipoA" class="form-control-lg bg-white collapse-inner" required style="width:100%;color:blue;">
+                        <label class="col-form-label" name="idEquipoB">Jugador</label>
+                        <select id="idDeportista" name="idDeportista" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
                             <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
                         </select>
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="idEquipoB">Equipo B</label>
-                        <select id="idEquipoB" name="idEquipoB" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
-                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
-                        </select>
+                        <label class="col-form-label" name="goles"><span style="color:red">*</span>Gol</label>
+                        <input type="number" max="100" class="form-control" id="goles" name="goles" placeholder="goles">
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="idArbitro">Árbitro</label>
-                        <select id="idArbitro" name="idArbitro" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
-                            <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Árbitro </option>
-                        </select>
+                        <label class="col-form-label" name="btnAdd">.</label>
+                        <button type="button" class="form-control btn-secondary" id="btnAdd" placeholder="Add" style="background: #4e73df;font-size:15px;color:white;">Anotar</button>
                     </div>
-                    <hr style="width:100%;color:blue;" />
-                    <div class="form-group row col-sm-12 mb-12 mb-sm-12">
-                        <h5 style="text-align:center" class="col-sm-12 mb-12 mb-sm-12">Marcador</h5>
-                        <div class="col-sm-3 mb-3 mb-sm-3">
-                            <label class="col-form-label" name="idEquipoB">Equipo</label>
-                            <select id="idEquipo" name="idEquipo" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
-                                <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
-                            </select>
+                    <div class="card-body">
+                        <div class="panel-body-busqueda">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover display compact dataTable" id="tableEncuentrosDeportivos">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">Equipo</th>
+                                            <th style="text-align:center">Jugador</th>
+                                            <th style="text-align:center">Goles</th>
+                                            <th style="text-align:center">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="col-sm-3 mb-3 mb-sm-3">
-                            <label class="col-form-label" name="idEquipoB">Jugador</label>
-                            <select id="idDeportista" name="idDeportista" class="form-control bg-white collapse-inner" required style="width:100%;color:blue;">
-                                <option value="" class="col-sm-3 mb-3 mb-sm-3">Seleccione el Equipo </option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 mb-3 mb-sm-3">
-                            <label class="col-form-label" name="goles"><span style="color:red">*</span>Gol</label>
-                            <input type="number" max="100" class="form-control" id="goles" name="goles" placeholder="goles">
-                        </div>
-                        <div class="col-sm-3 mb-3 mb-sm-3">
-                            <label class="col-form-label" name="btnAdd">.</label>
-                            <button type="button" class="form-control btn-secondary" id="btnAdd" placeholder="Add" style="background: #4e73df;font-size:15px;color:white;">Anotar</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 mb-3 mb-sm-3">
-                        <label class="col-form-label" name="btnCrear">.</label>
-                        <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="col-sm-3 mb-3 mb-sm-3">
+                    <label class="col-form-label" name="btnCrear">.</label>
+                    <button type="button" class="form-control btn-secondary" id="btnCrear" placeholder="Guardar" style="background: #4e73df;font-size:15px;color:white;">Guardar</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
     </div>
 </div>
 <script>
@@ -153,6 +171,19 @@
                     debugger
                     if (ok) {
                         toastr.success("success");
+                        for (var i = 0; i < ok.listResultados.length; i++) {
+                            $('#tableEncuentrosDeportivos').find('tbody').append(
+                                `<tr id="">
+                                <td align="center">${ok.listResultados[i].idEquipo}</td>
+                                <td align="center">${ok.listResultados[i].idDeportista}</td>
+                                <td align="center">${ok.listResultados[i].goles}</td>
+                                <td align="center">
+                                    <button type="button" class="btn btn-warning btn-xs" onclick="BorrarEvento('${1}')">
+                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
+                                    </button>
+                                </td>
+                            </tr >`);
+                        }
                     } else {
                         toastr.warning(ok.mensaje);
                     }
