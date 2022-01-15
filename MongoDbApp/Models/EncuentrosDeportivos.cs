@@ -11,7 +11,7 @@ namespace MongoDbApp.Models
         [BsonId]
         public ObjectId id { get; set; }
 
-        public string Encuentro { get; set; }
+        public string encuentro { get; set; }
         public string idTemporada { get; set; }
         public string idEquipoA { get; set; }
         public string idEquipoB { get; set; }
