@@ -132,7 +132,7 @@
     }
 
     $("#btnAdd").click(function Add() {
-        debugger
+        
         var idEquipo = $("#idEquipo").val();
         var idDeportista = $("#idDeportista").val();
         var goles = parseInt($("#goles").val());
@@ -143,6 +143,7 @@
             toastr.warning("Gol minimo 1")
             return;
         }
+        //---------------------------------------------------------------------GOLES POR JUGADOR Y EQUIPO------------------------------------------
 
         var objIndex = listResultados.findIndex((obj => obj.idEquipo == idEquipo && obj.idDeportista == idDeportista));
         //Update object's goles property.
@@ -150,17 +151,69 @@
             listResultados[objIndex].goles += goles;
         }
         else {
-            debugger
             b = { idEquipo: idEquipo, idDeportista: idDeportista, goles: goles };
             listResultados.push(b);
         }
         debugger
-        var golesEquipoA = listResultados.find(obj => obj.idEquipo == idEquipoA);
-        const totalgolesA = new resultados(golesEquipoA);
-        console.log(totalgolesA.sum('goles'));
-        var golesEquipoB = listResultados.find(obj => obj.idEquipo == idEquipoB);
+        //-----------------------------------------------------------------------GOLES POR EQUIPO A-------------------------------------------------
 
+
+        var golesEquipoA = listResultados.filter(obj => obj.idEquipo === idEquipoA);
+        let initialValueA = 0
+        let sumA = golesEquipoA.reduce(function (previousValue, currentValue) { return previousValue + currentValue.goles }, initialValueA)
+
+        //-----------------------------------------------------------------------GOLES POR EQUIPO B-------------------------------------------------
+
+        var golesEquipoB = listResultados.filter(obj => obj.idEquipo == idEquipoB);
+        let initialValueB = 0
+        let sumB = golesEquipoB.reduce(function (previousValue, currentValue) { return previousValue + currentValue.goles }, initialValueB)
+
+        //-----------------------------------------------------------------------Resultados-------------------------------------------------
+
+        var A = false;
+        var B = false;
+        var C = false;
+
+        if (sumA > sumB) {
+            A = true;
+        }
+        else if (sumA < sumB) {
+            B = true;
+        } else {
+            C = true;
+        }
+
+       //-----------------------------------------------------------------------RESULTADO EQUIPO A-------------------------------------------------
+
+        var objEquipoIndexA = listResultadosEquipo.findIndex((obj => obj.equipo == idEquipoA));
+        //Update object's goles property.
+        if (objEquipoIndexA >= 0) {
+            listResultadosEquipo[objEquipoIndexA].golesAFavor = sumA;
+            listResultadosEquipo[objEquipoIndexA].golesEnContra = sumB;
+            listResultadosEquipo[objEquipoIndexA].gano = A;
+            listResultadosEquipo[objEquipoIndexA].empate = C;
+        }
+        else {
+            b = { equipo: idEquipoA, golesAFavor: sumA, golesEnContra: sumB, gano: A, empate:C };
+            listResultadosEquipo.push(b);
+        }
+
+        //-----------------------------------------------------------------------RESULTADO EQUIPO B-------------------------------------------------
+
+        var objEquipoIndexB = listResultadosEquipo.findIndex((obj => obj.equipo == idEquipoB));
+        //Update object's goles property.
+        if (objEquipoIndexB >= 0) {
+            listResultadosEquipo[objEquipoIndexB].golesAFavor = sumB;
+            listResultadosEquipo[objEquipoIndexB].golesEnContra = sumA;
+            listResultadosEquipo[objEquipoIndexB].gano = B;
+            listResultadosEquipo[objEquipoIndexB].empate = C;
+        }
+        else {
+            b = { equipo: idEquipoB, golesAFavor: sumB, golesEnContra: sumA, gano: B, empate: C };
+            listResultadosEquipo.push(b);
+        }
         debugger
+        
         $('#tableResultado').DataTable().clear();
         $('#tableResultado').DataTable().destroy();
         $('#tableResultado').find('tbody').empty();
@@ -184,10 +237,11 @@
             idEquipoA: $("#idEquipoA").val(),
             idEquipoB: $("#idEquipoB").val(),
             idArbitro: $("#idArbitro").val(),
-            listResultados: listResultados
+            listResultados: listResultados,
+            listResultadosEquipo: listResultadosEquipo
         }
         var entidad = JSON.stringify(data);
-        debugger
+        
         if (update == false) {
             $.ajax({
                 url: 'https://localhost:44331/api/EventosDeportivos/CreateEncuentrosDeportivo',
@@ -201,7 +255,7 @@
                 async: true,
                 dataType: "JSON",
                 success: function (data) {
-                    debugger
+                    
                     if (data) {
                         update = true;
                         idText = data.idTex;
@@ -233,7 +287,7 @@
                                 listResultados[objIndex].goles = data.listResultados[i].goles;
                             }
                             else {
-                                debugger
+                                
                                 b = { idEquipo: data.listResultados[i].idEquipo, idDeportista: data.listResultados[i].idDeportista, goles: data.listResultados[i].goles };
                                 listResultados.push(b);
                             }
@@ -248,7 +302,7 @@
             });
         }
         else if (idText != "" && idText != undefined && idText != NaN) {
-            debugger
+            
             $.ajax({
                 url: 'https://localhost:44331/api/EventosDeportivos/UpdateEncuentrosDeportivo',
                 'type': 'PUT',
@@ -261,9 +315,9 @@
                 async: true,
                 dataType: "JSON",
                 success: function (response) {
-                    debugger
+                    
                     if (response.listResultados.length>0) {
-                        debugger
+                        
                         toastr.success("success");
                         $('#tableResultado').DataTable().clear();
                         $('#tableResultado').DataTable().destroy();
@@ -281,7 +335,7 @@
                                 listResultados[objIndex].goles = response.listResultados[i].goles;
                             }
                             else {
-                                debugger
+                                
                                 b = { idEquipo: response.listResultados[i].idEquipo, idDeportista: response.listResultados[i].idDeportista, goles: response.listResultados[i].goles };
                                 listResultados.push(b);
                             }
@@ -295,7 +349,7 @@
 
                 },
                 error: function (data) {
-                    debugger
+                    
                     toastr.error("No pudimos completar tu solicitud!");
                 }
             });
@@ -307,7 +361,7 @@
 
     function getEvento() {
         var id = '@ViewBag.idString';
-        debugger
+        
         if (id != "" && id != undefined && id != NaN) {
             var uri = 'https://localhost:44331/api/EventosDeportivos/GetEncuentrosDeportivoById';
             var url = uri + '?' + $.param({ "id": id });
@@ -315,7 +369,7 @@
                 url: url,
                 type: 'get',
                 success: function (data) {
-                    debugger
+                    
                     $("#idText").val("");
                     $("#idEquipoA").val("");
                     $("#idEquipoB").val("");
@@ -349,14 +403,14 @@
                                 <td align="center">${data.evento.listResultados[i].idDeportista}</td>
                                 <td align="center">${data.evento.listResultados[i].goles}</td>
                             </tr >`);
-                            debugger
+                            
                             var objIndex = listResultados.findIndex((obj => obj.idEquipo == data.evento.listResultados[i].idEquipo && obj.idDeportista == data.evento.listResultados[i].idDeportista));
                             //Update object's goles property.
                             if (objIndex >= 0) {
                                 listResultados[objIndex].goles = data.evento.listResultados[i].goles;
                             }
                             else {
-                                debugger
+                                
                                 b = { idEquipo: data.evento.listResultados[i].idEquipo, idDeportista: data.evento.listResultados[i].idDeportista, goles: data.evento.listResultados[i].goles };
                                 listResultados.push(b);
                             }
@@ -517,7 +571,7 @@
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $('#idDeportista').empty();
-                debugger
+                
                 if (data.ok) {
                     $(data.deportistas).each(function (i) {
                         $('#idDeportista').append($('<option>', {

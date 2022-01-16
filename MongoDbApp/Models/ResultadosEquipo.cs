@@ -12,5 +12,6 @@ namespace MongoDbApp.Models
         public int golesAFavor { get; set; }
         public int golesEnContra { get; set; }
         public bool gano { get; set; }
+        public bool empate { get; set; }
     }
 }
