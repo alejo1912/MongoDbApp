@@ -80,7 +80,6 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
                         var counB = +item.listResultados.Where(x => x.idEquipo == item.asEquiposB.id.ToString()).Select(x => x.goles).ToList().Sum();
                     }
 
-
                 }
 
             }
