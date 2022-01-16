@@ -20,5 +20,8 @@ namespace MongoDbApp.Models
 
         [BsonIgnore]
         public string deportista { get; set; }
+
+        [BsonIgnore]
+        public bool gano { get; set; }
     }
 }

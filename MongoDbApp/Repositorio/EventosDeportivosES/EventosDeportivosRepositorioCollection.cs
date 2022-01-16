@@ -75,7 +75,12 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
                         var jugador = await collectinDeportistas.FindAsync(new BsonDocument { { "_id", new ObjectId(resultado.idDeportista) } }).Result.FirstAsync();
                         resultado.deportista = jugador.nombre;
+
+                        var counA = +item.listResultados.Where(x => x.idEquipo == item.asEquiposA.id.ToString()).Select(x => x.goles).ToList().Sum();
+                        var counB = +item.listResultados.Where(x => x.idEquipo == item.asEquiposB.id.ToString()).Select(x => x.goles).ToList().Sum();
                     }
+
+
                 }
 
             }

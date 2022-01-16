@@ -28,9 +28,6 @@ namespace MongoDbApp.Models
         public string fechaTex { get; set; }
 
         [BsonIgnore]
-        public bool gano { get; set; }
-
-        [BsonIgnore]
         public string temporada { get; set; }
 
         [BsonIgnore]
