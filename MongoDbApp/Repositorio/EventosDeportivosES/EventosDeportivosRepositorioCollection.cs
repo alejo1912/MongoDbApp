@@ -22,12 +22,18 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
         private IMongoCollection<EncuentrosDeportivos> collectinEncuentrosDeportivos;
         private IMongoCollection<Resultados> collectinResultados;
         private IMongoCollection<Temporadas> collectinTemporadas;
+        private IMongoCollection<Equipos> collectinEquipos;
+        private IMongoCollection<Arbitros> collectinArbitros;
+        private IMongoCollection<Deportistas> collectinDeportistas;
         public EventosDeportivosRepositorioCollection()
         {
             // si no encuentra la collection crea una nueva
             collectinEncuentrosDeportivos = _repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
             collectinResultados = _repository.db.GetCollection<Resultados>("Resultados");
             collectinTemporadas = _repository.db.GetCollection<Temporadas>("Temporadas");
+            collectinEquipos = _repository.db.GetCollection<Equipos>("Equipos");
+            collectinArbitros = _repository.db.GetCollection<Arbitros>("Arbitros");
+            collectinDeportistas = _repository.db.GetCollection<Deportistas>("Deportistas");
         }
 
         #region EncuentrosDeportivos
@@ -48,8 +54,35 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
         public async Task<List<EncuentrosDeportivos>> GetListEncuentrosDeportivos()
         {
             List<EncuentrosDeportivos> listEncuentros = new List<EncuentrosDeportivos>();
-            var eventos = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
 
+            listEncuentros = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
+            foreach (var item in listEncuentros)
+            {
+                item.idTex = item.id.ToString();
+                item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
+
+                item.asTemporadas = await collectinTemporadas.FindAsync(new BsonDocument { { "_id", new ObjectId(item.idTemporada) } }).Result.FirstAsync();
+                item.asEquiposA = await collectinEquipos.FindAsync(new BsonDocument { { "_id", new ObjectId(item.idEquipoA) } }).Result.FirstAsync();
+                item.asEquiposB = await collectinEquipos.FindAsync(new BsonDocument { { "_id", new ObjectId(item.idEquipoB) } }).Result.FirstAsync();
+                item.asArbitro = await collectinArbitros.FindAsync(new BsonDocument { { "_id", new ObjectId(item.idArbitro) } }).Result.FirstAsync();
+
+                if (item.listResultados.Count()>0)
+                {
+                    foreach (var resultado in item.listResultados)
+                    {
+                        var equipo = await collectinEquipos.FindAsync(new BsonDocument { { "_id", new ObjectId(resultado.idEquipo) } }).Result.FirstAsync();
+                        resultado.equipo = equipo.nombreEquipo;
+
+                        var jugador = await collectinDeportistas.FindAsync(new BsonDocument { { "_id", new ObjectId(resultado.idDeportista) } }).Result.FirstAsync();
+                        resultado.deportista = jugador.nombre;
+                    }
+                }
+
+            }
+            return listEncuentros;
+
+            // esto obtiene consultas unidas entre tablas pero no se como se serializan los datos dentro de EncuentrosDeportivos
+            #region
             //var query = from eco in collectinEncuentrosDeportivos.AsQueryable()
             //        join tem in collectinTemporadas.AsQueryable() on eco.idTemporada equals tem.idTex into joined
             //        select new { eco.temporada }; 
@@ -70,12 +103,7 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
             //List<EncuentrosDeportivos> results = BsonSerializer.Deserialize<List<EncuentrosDeportivos>>(ConvertToJson,null);
 
-            foreach (var item in eventos)
-            {
-                item.idTex = item.id.ToString();
-                item.fechaTex = item.fecha.ToString("yyyy-MM-dd", culture);
-            }
-            return eventos;
+            #endregion
         }
 
         public async Task<EncuentrosDeportivos> InsertEncuentrosDeportivo(EncuentrosDeportivos entidad)

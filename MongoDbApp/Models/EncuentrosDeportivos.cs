@@ -28,6 +28,9 @@ namespace MongoDbApp.Models
         public string fechaTex { get; set; }
 
         [BsonIgnore]
+        public bool gano { get; set; }
+
+        [BsonIgnore]
         public string temporada { get; set; }
 
         [BsonIgnore]
@@ -37,13 +40,20 @@ namespace MongoDbApp.Models
         public string equipoB { get; set; }
 
         [BsonIgnore]
-        public string asArbitro { get; set; }
+        public string arbitro { get; set; }
+
+        [BsonIgnore]
+        public Arbitros asArbitro { get; set; }
+
 
         [BsonIgnore]
         public Temporadas asTemporadas { get; set; }
 
         [BsonIgnore]
-        public Equipos asEquipos { get; set; }
+        public Equipos asEquiposA { get; set; }
+
+        [BsonIgnore]
+        public Equipos asEquiposB { get; set; }
 
         [BsonIgnore]
         public Deportistas asDeportistas { get; set; }
