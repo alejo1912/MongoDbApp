@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFrontEnd", "WebFrontEnd\WebFrontEnd.csproj", "{322D6FCF-4074-4347-8809-3100F4AF992B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentacion", "Documentacion", "{7C3C3063-74BE-42DD-A746-01013CF71FC1}"
+	ProjectSection(SolutionItems) = preProject
+		LEEME.txt = LEEME.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
