@@ -17,6 +17,7 @@ namespace MongoDbApp.Models
         public string idArbitro { get; set; }
         public DateTime fecha { get; set; }
         public List<Resultados> listResultados { get; set; }
+        public List<ResultadosEquipo> listResultadosEquipo { get; set; }
 
     }
     public class ReadOnlyEncuentrosDeportivos
