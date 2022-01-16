@@ -78,6 +78,18 @@
                     <div class="card-body">
                         <div class="panel-body-busqueda">
                             <div class="table-responsive">
+                                <table class="table table-sm table-hover display compact dataTable" id="tableResultadoEquipos">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">Equipo</th>
+                                            <th style="text-align:center">Goles a Favor</th>
+                                            <th style="text-align:center">Goles En Contra</th>
+                                            <th style="text-align:center">Gano</th>
+                                            <th style="text-align:center">Empate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                                 <table class="table table-sm table-hover display compact dataTable" id="tableResultado">
                                     <thead>
                                         <tr>
@@ -133,6 +145,8 @@
 
     $("#btnAdd").click(function Add() {
         
+         idEquipoA = $("#idEquipoA").val();
+         idEquipoB = $("#idEquipoB").val();
         var idEquipo = $("#idEquipo").val();
         var idDeportista = $("#idDeportista").val();
         var goles = parseInt($("#goles").val());
@@ -225,6 +239,20 @@
                     <td align="center">${listResultados[i].goles}</td>
             </tr >`);
         }
+
+        $('#tableResultadoEquipos').DataTable().clear();
+        $('#tableResultadoEquipos').DataTable().destroy();
+        $('#tableResultadoEquipos').find('tbody').empty();
+        for (var i = 0; i < listResultadosEquipo.length; i++) {
+            $('#tableResultadoEquipos').find('tbody').append(
+                `<tr id="">
+                    <td align="center">${listResultadosEquipo[i].equipo}</td>
+                    <td align="center">${listResultadosEquipo[i].golesAFavor}</td>
+                    <td align="center">${listResultadosEquipo[i].golesEnContra}</td>
+                    <td align="center">${listResultadosEquipo[i].gano}</td>
+                    <td align="center">${listResultadosEquipo[i].empate}</td>
+                </tr >`);
+        }
     });
 
 
@@ -292,6 +320,19 @@
                                 listResultados.push(b);
                             }
                         }
+                        $('#tableResultadoEquipos').DataTable().clear();
+                        $('#tableResultadoEquipos').DataTable().destroy();
+                        $('#tableResultadoEquipos').find('tbody').empty();
+                        for (var i = 0; i < data.listResultadosEquipo.length; i++) {
+                                    $('#tableResultadoEquipos').find('tbody').append(
+                                     `<tr id="">
+                                        <td align="center">${data.listResultadosEquipo[i].equipo}</td>
+                                        <td align="center">${data.listResultadosEquipo[i].golesAFavor}</td>
+                                        <td align="center">${data.listResultadosEquipo[i].golesEnContra}</td>
+                                        <td align="center">${data.listResultadosEquipo[i].gano}</td>
+                                        <td align="center">${data.listResultadosEquipo[i].empate}</td>
+                                    </tr >`);
+                                }
                     } else {
                         toastr.warning("error!");
                     }
@@ -340,7 +381,19 @@
                                 listResultados.push(b);
                             }
                         }
-
+                        $('#tableResultadoEquipos').DataTable().clear();
+                        $('#tableResultadoEquipos').DataTable().destroy();
+                        $('#tableResultadoEquipos').find('tbody').empty();
+                        for (var i = 0; i < response.listResultadosEquipo.length; i++) {
+                            $('#tableResultadoEquipos').find('tbody').append(
+                                `<tr id="">
+                                        <td align="center">${response.listResultadosEquipo[i].equipo}</td>
+                                        <td align="center">${response.listResultadosEquipo[i].golesAFavor}</td>
+                                        <td align="center">${response.listResultadosEquipo[i].golesEnContra}</td>
+                                        <td align="center">${response.listResultadosEquipo[i].gano}</td>
+                                        <td align="center">${response.listResultadosEquipo[i].empate}</td>
+                                    </tr >`);
+                        }
                     } else {
                         toastr.warning("error");
                     }
@@ -414,6 +467,19 @@
                                 b = { idEquipo: data.evento.listResultados[i].idEquipo, idDeportista: data.evento.listResultados[i].idDeportista, goles: data.evento.listResultados[i].goles };
                                 listResultados.push(b);
                             }
+                        }
+                        $('#tableResultadoEquipos').DataTable().clear();
+                        $('#tableResultadoEquipos').DataTable().destroy();
+                        $('#tableResultadoEquipos').find('tbody').empty();
+                        for (var i = 0; i < data.evento.listResultadosEquipo.length; i++) {
+                            $('#tableResultadoEquipos').find('tbody').append(
+                                `<tr id="">
+                                <td align="center">${data.evento.listResultadosEquipo[i].equipo}</td>
+                                <td align="center">${data.evento.listResultadosEquipo[i].golesAFavor}</td>
+                                <td align="center">${data.evento.listResultadosEquipo[i].golesEnContra}</td>
+                                <td align="center">${data.evento.listResultadosEquipo[i].gano}</td>
+                                <td align="center">${data.evento.listResultadosEquipo[i].empate}</td>
+                            </tr >`);
                         }
 
                     } else {
