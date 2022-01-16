@@ -120,7 +120,8 @@ namespace MongoDbApp.Controllers.Api
                 if (ModelState.IsValid && !string.IsNullOrWhiteSpace(entidad.idTex))
                 {
                     entidad.id = new MongoDB.Bson.ObjectId(entidad.idTex);
-                    await Task.Run(() => _repositoryEventosDeportivos.UpdateEncuentrosDeportivo(entidad));
+                    var evento = await Task.Run(() => _repositoryEventosDeportivos.UpdateEncuentrosDeportivo(entidad));
+                    return Ok(evento);
                 }
                 else
                 {
@@ -138,7 +139,7 @@ namespace MongoDbApp.Controllers.Api
                     }
                     return BadRequest(data);
                 }
-                return Ok(data);
+                
             }
             catch (Exception x)
             {

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Linq;
 
 namespace MongoDbApp.Repositorio.EventosDeportivosES
 {
@@ -19,11 +21,13 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
         internal MongoDBRepository _repository = new MongoDBRepository();
         private IMongoCollection<EncuentrosDeportivos> collectinEncuentrosDeportivos;
         private IMongoCollection<Resultados> collectinResultados;
+        private IMongoCollection<Temporadas> collectinTemporadas;
         public EventosDeportivosRepositorioCollection()
         {
             // si no encuentra la collection crea una nueva
             collectinEncuentrosDeportivos = _repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
             collectinResultados = _repository.db.GetCollection<Resultados>("Resultados");
+            collectinTemporadas = _repository.db.GetCollection<Temporadas>("Temporadas");
         }
 
         #region EncuentrosDeportivos
@@ -43,7 +47,28 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
         public async Task<List<EncuentrosDeportivos>> GetListEncuentrosDeportivos()
         {
-             var eventos = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
+            List<EncuentrosDeportivos> listEncuentros = new List<EncuentrosDeportivos>();
+            var eventos = await collectinEncuentrosDeportivos.FindAsync(new BsonDocument()).Result.ToListAsync();
+
+            //var query = from eco in collectinEncuentrosDeportivos.AsQueryable()
+            //        join tem in collectinTemporadas.AsQueryable() on eco.idTemporada equals tem.idTex into joined
+            //        select new { eco.temporada }; 
+
+
+            //var docs = collectinEncuentrosDeportivos.Aggregate().Lookup("Temporadas", "idTemporada", "idTex", "asTemporadas").ToList();
+            //var docs = collectinEncuentrosDeportivos.Aggregate().Lookup("Temporadas", "idTemporada", "idTex", "asTemporadas").As<BsonDocument>().ToList();
+            //var dd= collectinEncuentrosDeportivos.Aggregate().Lookup("Nombre de la colección extranjera", "Nombre del campo local", "Nombre del campo extranjero", "resultado");
+
+
+            //var res =collectinEncuentrosDeportivos.Aggregate().Lookup("Temporadas", "idTemporada", "idTex", "asTemporadas").Project(Builders<BsonDocument>.Projection.Exclude("_id")).ToList();
+            // Entonces lo necesitas para convertir a JSON
+
+            //String ConvertToJson = docs[0].AsBsonDocument.ToJson();
+            //String resultsConvertToJson = ConvertToJson.ToJson();
+
+            //Luego use BSONSerialize y colóquelo en C# Strongly typed Collection
+
+            //List<EncuentrosDeportivos> results = BsonSerializer.Deserialize<List<EncuentrosDeportivos>>(ConvertToJson,null);
 
             foreach (var item in eventos)
             {
@@ -63,22 +88,29 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
 
             if (!string.IsNullOrWhiteSpace(entidad.idTex)&& entidad.idTex!= "000000000000000000000000")
             {
-                var x =_repository.db.GetCollection<EncuentrosDeportivos>("EncuentrosDeportivos");
+                var docs = collectinEncuentrosDeportivos.Aggregate()
+                                     .Lookup("temporada", "idTemporada", "_id", "asTemporadas")
+                                     .As<BsonDocument>().ToList();
 
+                foreach (var doc in docs)
+                {
+                    var dat = doc.ToJson();
+                }
             }
 
             return entidad;
         }
 
-        public async Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
+        public async Task<EncuentrosDeportivos> UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad)
         {
+            entidad.idTex = null;
             var builder = Builders<EncuentrosDeportivos>.Update.Set(x => x.id, entidad.id);
 
             foreach (PropertyInfo prop in entidad.GetType().GetProperties())
             {
                 var value = entidad.GetType().GetProperty(prop.Name).GetValue(entidad, null);
 
-                if (prop.Name != "id")
+                if (prop.Name != "id"&& prop.Name != "fecha")
                 {
                     if (value != null)
                     {
@@ -88,15 +120,14 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
                     {
                         builder = builder.Unset(prop.Name);
                     }
-
                 }
             }
 
             var filter = Builders<EncuentrosDeportivos>.Filter;
             var filter_def = filter.Eq(x => x.id, entidad.id);
 
-            await collectinEncuentrosDeportivos.UpdateOneAsync(filter_def, builder);
-
+            var result=await collectinEncuentrosDeportivos.UpdateOneAsync(filter_def, builder);
+            return entidad;
 
             //var filtro = Builders<EncuentrosDeportivos>.Filter.Eq(x => x.id, entidad.id);
             //entidad.fecha = DateTime.Now;

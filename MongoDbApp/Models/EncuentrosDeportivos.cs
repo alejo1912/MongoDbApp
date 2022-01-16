@@ -10,15 +10,14 @@ namespace MongoDbApp.Models
     {
         [BsonId]
         public ObjectId id { get; set; }
-
         public string encuentro { get; set; }
         public string idTemporada { get; set; }
         public string idEquipoA { get; set; }
         public string idEquipoB { get; set; }
         public string idArbitro { get; set; }
         public DateTime fecha { get; set; }
-
         public List<Resultados> listResultados { get; set; }
+
     }
     public class ReadOnlyEncuentrosDeportivos
     {
@@ -29,15 +28,24 @@ namespace MongoDbApp.Models
         public string fechaTex { get; set; }
 
         [BsonIgnore]
-        public string Temporada { get; set; }
+        public string temporada { get; set; }
 
         [BsonIgnore]
-        public string EquipoA { get; set; }
+        public string equipoA { get; set; }
 
         [BsonIgnore]
-        public string EquipoB { get; set; }
+        public string equipoB { get; set; }
 
         [BsonIgnore]
-        public string Arbitro { get; set; }
+        public string asArbitro { get; set; }
+
+        [BsonIgnore]
+        public Temporadas asTemporadas { get; set; }
+
+        [BsonIgnore]
+        public Equipos asEquipos { get; set; }
+
+        [BsonIgnore]
+        public Deportistas asDeportistas { get; set; }
     }
 }

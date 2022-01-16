@@ -22,7 +22,7 @@ namespace MongoDbApp.Repositorio.EventosDeportivosES
         /// </summary>
         /// <param name="entidad"></param>
         /// <returns></returns>
-        Task UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad);
+        Task<EncuentrosDeportivos> UpdateEncuentrosDeportivo(EncuentrosDeportivos entidad);
 
         /// <summary>
         /// elimina un evento deportivo existente de la base de datos

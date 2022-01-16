@@ -25,8 +25,8 @@
                     <input type="text" class="form-control" id="idText" name="idText" placeholder="Id" required readonly>
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
-                    <label class="col-form-label" name="Encuentro"><span style="color:red">*</span>Encuentro</label>
-                    <input type="text" class="form-control" id="Encuentro" name="Encuentro" placeholder="Nombre Encuentro">
+                    <label class="col-form-label" name="encuentro"><span style="color:red">*</span>Encuentro</label>
+                    <input type="text" class="form-control" id="encuentro" name="encuentro" placeholder="Nombre Encuentro">
                 </div>
                 <div class="col-sm-3 mb-3 mb-sm-3">
                     <label class="col-form-label" name="idTemporada">Temporada-Campeonato</label>
@@ -78,13 +78,12 @@
                     <div class="card-body">
                         <div class="panel-body-busqueda">
                             <div class="table-responsive">
-                                <table class="table table-sm table-hover display compact dataTable" id="tableEncuentrosDeportivos">
+                                <table class="table table-sm table-hover display compact dataTable" id="tableResultado">
                                     <thead>
                                         <tr>
                                             <th style="text-align:center">Equipo</th>
                                             <th style="text-align:center">Jugador</th>
                                             <th style="text-align:center">Goles</th>
-                                            <th style="text-align:center">Acción</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -110,6 +109,7 @@
     var idEquipoA = "";
     var idEquipoB = "";
     var idTemporada = "";
+    var encuentro = "";
     var idArbitro = "";
     var ListResultados = [];
     $(document).ready(function () {
@@ -148,13 +148,14 @@
         var data = {
             idTex: idText,
             idTemporada: $("#idTemporada").val(),
+            encuentro: $("#encuentro").val(),
             idEquipoA: $("#idEquipoA").val(),
             idEquipoB: $("#idEquipoB").val(),
             idArbitro: $("#idArbitro").val(),
-            Encuentro: $("#Encuentro").val(),
             listResultados: ListResultados
         }
         var entidad = JSON.stringify(data);
+        debugger
         if (update == false) {
             $.ajax({
                 url: 'https://localhost:44331/api/EventosDeportivos/CreateEncuentrosDeportivo',
@@ -167,29 +168,47 @@
                 traditional: true,
                 async: true,
                 dataType: "JSON",
-                success: function (ok) {
+                success: function (data) {
                     debugger
-                    if (ok) {
-                        toastr.success("success");
-                        for (var i = 0; i < ok.listResultados.length; i++) {
-                            $('#tableEncuentrosDeportivos').find('tbody').append(
+                    if (data) {
+                        update = true;
+                        idText = data.idTex;
+                        $("#idText").val(data.idTex);
+                        $("#encuentro").val(data.encuentro);
+                        $("#idEquipoA").val(data.idEquipoA);
+                        idEquipoA = data.idEquipoA;
+                        $("#idEquipoB").val(data.idEquipoB);
+                        idEquipoB = data.idEquipoB;
+                        $("#idTemporada").val(data.idTemporada);
+                        idTemporada = data.idTemporada;
+                        $("#idArbitro").val(data.idArbitro);
+                        idArbitro = data.idArbitro;
+
+                        $('#tableResultado').DataTable().clear();
+                        $('#tableResultado').DataTable().destroy();
+                        $('#tableResultado').find('tbody').empty();
+                        for (var i = 0; i < data.listResultados.length; i++) {
+                            $('#tableResultado').find('tbody').append(
                                 `<tr id="">
-                                <td align="center">${ok.listResultados[i].idEquipo}</td>
-                                <td align="center">${ok.listResultados[i].idDeportista}</td>
-                                <td align="center">${ok.listResultados[i].goles}</td>
-                                <td align="center">
-                                    <button type="button" class="btn btn-warning btn-xs" onclick="BorrarEvento('${1}')">
-                                        <i class="fa fa-trash"></i>&nbsp;Borrar&nbsp;&nbsp;
-                                    </button>
-                                </td>
+                                <td align="center">${data.listResultados[i].idEquipo}</td>
+                                <td align="center">${data.listResultados[i].idDeportista}</td>
+                                <td align="center">${data.listResultados[i].goles}</td>
                             </tr >`);
+
+                            var objIndex = ListResultados.findIndex((obj => obj.idEquipo == data.listResultados[i].idEquipo && obj.idDeportista == data.listResultados[i].idDeportista));
+                            //Update object's goles property.
+                            if (objIndex >= 0) {
+                                ListResultados[objIndex].goles = data.listResultados[i].goles;
+                            }
+                            else {
+                                debugger
+                                b = { idEquipo: data.listResultados[i].idEquipo, idDeportista: data.listResultados[i].idDeportista, goles: data.listResultados[i].goles };
+                                ListResultados.push(b);
+                            }
                         }
                     } else {
-                        toastr.warning(ok.mensaje);
+                        toastr.warning("error!");
                     }
-                },
-                complete: function () {
-
                 },
                 error: function (data) {
                     toastr.error("No pudimos completar tu solicitud!");
@@ -197,6 +216,7 @@
             });
         }
         else if (idText != "" && idText != undefined && idText != NaN) {
+            debugger
             $.ajax({
                 url: 'https://localhost:44331/api/EventosDeportivos/UpdateEncuentrosDeportivo',
                 'type': 'PUT',
@@ -208,17 +228,42 @@
                 traditional: true,
                 async: true,
                 dataType: "JSON",
-                success: function (ok) {
-                    if (ok) {
+                success: function (response) {
+                    debugger
+                    if (response.listResultados.length>0) {
+                        debugger
                         toastr.success("success");
+                        $('#tableResultado').DataTable().clear();
+                        $('#tableResultado').DataTable().destroy();
+                        $('#tableResultado').find('tbody').empty();
+                        for (var i = 0; i < response.listResultados.length; i++) {
+                            $('#tableResultado').find('tbody').append(
+                                `<tr id="">
+                                <td align="center">${response.listResultados[i].idEquipo}</td>
+                                <td align="center">${response.listResultados[i].idDeportista}</td>
+                                <td align="center">${response.listResultados[i].goles}</td>
+                            </tr >`);
+                            var objIndex = ListResultados.findIndex((obj => obj.idEquipo == response.listResultados[i].idEquipo && obj.idDeportista == response.listResultados[i].idDeportista));
+                            //Update object's goles property.
+                            if (objIndex >= 0) {
+                                ListResultados[objIndex].goles = response.listResultados[i].goles;
+                            }
+                            else {
+                                debugger
+                                b = { idEquipo: response.listResultados[i].idEquipo, idDeportista: response.listResultados[i].idDeportista, goles: response.listResultados[i].goles };
+                                ListResultados.push(b);
+                            }
+                        }
+
                     } else {
-                        toastr.warning(ok.mensaje);
+                        toastr.warning("error");
                     }
                 },
                 complete: function () {
 
                 },
                 error: function (data) {
+                    debugger
                     toastr.error("No pudimos completar tu solicitud!");
                 }
             });
@@ -244,7 +289,7 @@
                     $("#idEquipoB").val("");
                     $("#idTemporada").val("");
                     $("#idArbitro").val("");
-                    $("#Encuentro").val("");
+                    $("#encuentro").val("");
 
                     if (data.response.ok) {
                         toastr.success(data.response.message);
@@ -252,7 +297,7 @@
 
                         idText = data.evento.idTex;
                         $("#idText").val(data.evento.idTex);
-                        $("#Encuentro").val(data.evento.Encuentro);
+                        $("#encuentro").val(data.evento.encuentro);
                         $("#idEquipoA").val(data.evento.idEquipoA);
                         idEquipoA=data.evento.idEquipoA;
                         $("#idEquipoB").val(data.evento.idEquipoB);
@@ -260,7 +305,30 @@
                         $("#idTemporada").val(data.evento.idTemporada);
                         idTemporada=data.evento.idTemporada;
                         $("#idArbitro").val(data.evento.idArbitro);
-                        idArbitro=data.evento.idArbitro;
+                        idArbitro = data.evento.idArbitro;
+
+                        $('#tableResultado').DataTable().clear();
+                        $('#tableResultado').DataTable().destroy();
+                        $('#tableResultado').find('tbody').empty();
+                        for (var i = 0; i < data.evento.listResultados.length; i++) {
+                            $('#tableResultado').find('tbody').append(
+                                `<tr id="">
+                                <td align="center">${data.evento.listResultados[i].idEquipo}</td>
+                                <td align="center">${data.evento.listResultados[i].idDeportista}</td>
+                                <td align="center">${data.evento.listResultados[i].goles}</td>
+                            </tr >`);
+                            debugger
+                            var objIndex = ListResultados.findIndex((obj => obj.idEquipo == data.evento.listResultados[i].idEquipo && obj.idDeportista == data.evento.listResultados[i].idDeportista));
+                            //Update object's goles property.
+                            if (objIndex >= 0) {
+                                ListResultados[objIndex].goles = data.evento.listResultados[i].goles;
+                            }
+                            else {
+                                debugger
+                                b = { idEquipo: data.evento.listResultados[i].idEquipo, idDeportista: data.evento.listResultados[i].idDeportista, goles: data.evento.listResultados[i].goles };
+                                ListResultados.push(b);
+                            }
+                        }
 
                     } else {
                         toastr.warning("No pudimos procesar su Solicitud!");
