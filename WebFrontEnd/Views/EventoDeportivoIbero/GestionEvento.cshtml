@@ -140,6 +140,18 @@
             b = { idEquipo: idEquipo, idDeportista: idDeportista, goles: goles };
             ListResultados.push(b);
         }
+
+        $('#tableResultado').DataTable().clear();
+        $('#tableResultado').DataTable().destroy();
+        $('#tableResultado').find('tbody').empty();
+        for (var i = 0; i < ListResultados.length; i++) {
+            $('#tableResultado').find('tbody').append(
+                `<tr id="">
+                    <td align="center">${ListResultados[i].idEquipo}</td>
+                    <td align="center">${ListResultados[i].idDeportista}</td>
+                    <td align="center">${ListResultados[i].goles}</td>
+                </tr >`);
+        }
     });
 
 
